@@ -1,13 +1,14 @@
 <template>
   <div>
-    <AddItem :item="item" :tableName="tableName"></AddItem>
-<!--    פה צריך להעביר לו את האייטם ואת הטייבל אז צריך להעביר דרך פרופס-->
+    <AddItem v-if="item.id" :item="item" :tableName="tableName"></AddItem>
+    <!--    פה צריך להעביר לו את האייטם ואת הטייבל אז צריך להעביר דרך פרופס-->
   </div>
 </template>
 
 <script>
-import localStorageDriver from '../middleware/local-storage';
+// import localStorageDriver from '../middleware/local-storage';
 import AddItem from "@/components/AddItem";
+import api from '../middleware/api';
 
 
 export default {
@@ -22,13 +23,15 @@ export default {
     }
   },
   methods: {
-    getItemById() {
-      this.item = localStorageDriver.getItemById(this.tableName, this.$route.params.id)
-
+    get() {
+      api.get({entity: this.tableName, id: this.$route.params.id})
+          .then((res) => {
+            this.item = res
+          })
     }
   },
   created() { // בעת טעינת ה-COMP תפעיל את הפונ' GET שהוא ילך וימשוך את זה מהסטוראז' לפי ID וילך ויחזיר לנו  את אותו האייטם
-    this.getItemById();
+    this.get();
   }
 }
 </script>

@@ -58,7 +58,7 @@
 
 
 <script>
-import localStorageDriver from '../middleware/local-storage'; // פה טענו את הלוקאל סטוראז' ועכשיו נוכל להשתמש בפונ' שלו
+import api from '../middleware/api';
 
 export default {
   name: "TableViewer",
@@ -89,11 +89,17 @@ export default {
   },
   methods: {
     read() {
-      this.data = localStorageDriver.select(this.tableName); // אני רוצה בעת הטעינה של ה-COMP לעשות שליפה מהלוקאל סטוראז' ובעצם להביא את הנתונים
+      api.get({entity: this.tableName})
+          .then(recipes => {
+            debugger
+            this.data = recipes
+          }) // אני רוצה בעת הטעינה של ה-COMP לעשות שליפה מהלוקאל סטוראז' ובעצם להביא את הנתונים
     },
     remove(id) {
-      localStorageDriver.remove(this.tableName, id);
-      this.read()
+      api.remove({entity: this.tableName, id: id})
+          .then( () =>{
+            this.read()
+          });
     },
     goToItem(id) {
       this.$router.push(`/item/${id}`) // לך ל-ITEM.ID
