@@ -1,29 +1,27 @@
 <template>
-  <div class="q-pa-md">
-    Add a new recipe:
-    <!--  בעצם שמנו ב-V-MODEL את הפרמטרים שאנחנו רוצים למפות בין מה שיש לנו בדאטה לבין מה שיש לנו בוי מודל,-->
-    <!--  כלומר הוי מודל עוזר לנו לעשות תהליך שנקרא ביינדינג בעצם לקשר את מה שיכנס לאינפוט לדאטה-->
-    <q-input outlined v-model="newRecipe.name" label="Recipe Name" style="max-width: 400px"/>
-    <q-select outlined v-model="newRecipe.type" :options="typeOptions" style="max-width: 200px" class="q-mb-lg"
-              label="Type">
+  <div class="inputs" dir="rtl">
+    הוסף מתכון חדש:
+
+    <q-input outlined v-model="localNewRecipe.name" label="שם המתכון" style="max-width: 300px" class="q-mb-lg"/>
+    <q-select outlined v-model="localNewRecipe.type" :options="typeOptions" style="max-width: 200px" class="q-mb-lg"
+              label="חלבי/פרווה">
 
       <template v-slot:prepend>
         <q-icon name="icecream"/>
       </template>
     </q-select>
 
-    <q-select outlined v-model="newRecipe.difficulty" :options="diff" style="max-width: 200px" class="q-mb-lg"
-              label="Difficulty">
+    <q-select outlined v-model="localNewRecipe.difficulty" :options="diff" style="max-width: 200px" class="q-mb-lg"
+              label="רמת קושי">
       <template v-slot:prepend>
         <q-icon name="emoji_events"/>
       </template>
     </q-select>
 
     <div class="row">
-      <div class="q-mx-lg le">
-        <!--      <q-input outlined v-model="newIngredient.name" label="Ingredient name" style="max-width: 170px" />-->
-        <div class="q-pa-md">
-          <div class="q-gutter-md row">
+      <div class="q-mx-lg">
+        <div>
+          <div class="name">
             <q-select
                 filled
                 v-model="newIngredient.name"
@@ -33,8 +31,8 @@
                 input-debounce="0"
                 :options="options"
                 @filter="filterFn"
-                hint="Minimum 2 characters to trigger filtering"
-                style="width: 250px; padding-bottom: 20px"
+                hint="הכנס מינימום שתי אותיות"
+                style="width: 250px; padding-bottom: 10px"
             >
               <template v-slot:no-option>
                 <q-item>
@@ -47,19 +45,19 @@
           </div>
         </div>
 
-        <q-input outlined v-model="newIngredient.amount" label="Ingredient amount" style="max-width: 170px"/>
-        <q-btn @click="addIngredient" label="Add ingredient"/>
+        <q-input outlined v-model="newIngredient.amount" label="הכנס כמות" style="max-width: 200px" class="q-mb-lg"/>
+        <q-btn @click="addIngredient" label="הוסף מרכיב" class="q-mb-lg"/>
       </div>
 
-      <div class="q-mx-lg bg-orange-8 text-white glossy">
-        <div style="max-width: 350px">
+      <div class="q-mx-lg bg-deep-orange-4 text-white glossy">
+        <div style="max-width: 400px">
           <q-list class="glossy" bordered separator>
             <q-item v-ripple>
-              <q-item-section>Ingredients list</q-item-section>
+              <q-item-section>רשימת המרכיבים</q-item-section>
             </q-item>
 
-            <q-item v-for="(Ingredient, index) of newRecipe.ingredients" :key="Ingredient.name" v-ripple>
-              <q-item-section class="">
+            <q-item v-for="(Ingredient, index) of localNewRecipe.ingredients" :key="Ingredient.name" v-ripple>
+              <q-item-section>
                 <div>
                   <q-item-label>{{ Ingredient.name }}</q-item-label>
                   <q-item-label>{{ Ingredient.amount }}</q-item-label>
@@ -85,83 +83,129 @@
 
     <div class="q-py-md" style="max-width: 300px">
       <q-input
-          v-model="newRecipe.preparation"
+          v-model="localNewRecipe.preparation"
           outlined
           autogrow
-          label="Enter preparation"
+          label="אופן ההכנה"
       />
     </div>
-    <q-btn v-if="!item" color="white" text-color="black" label="insert" @click="insert()"/>
-    <q-btn v-if="item" color="white" text-color="black" label="update" @click="update()"/>
+
+    <div class="addImg">
+      <q-input v-model="file" type="file" id="photo"/>
+<!--      <q-btn @click="getImageUrl" class="q-mb-lg" label="הוסף תמונה למתכון"/>-->
+<!--            <q-btn @click="deleteImage" class="q-mb-lg" label="מחק תמונה"/>-->
+    </div>
+
+    <q-btn v-if="!localNewRecipe.id" class="q-mb-lg" style="max-width: 200px" color="white" text-color="black"
+           label="הכנס מתכון"
+           @click="insert()"/>
+    <q-btn v-if="localNewRecipe.id" class="q-mb-lg" style="max-width: 200px" color="white" text-color="black"
+           label="עדכן מתכון"
+           @click="update()"/>
   </div>
 </template>
 
 <script>
-// import localStorageDriver from '../middleware/local-storage';
-import api from '../middleware/api'
+import {mapState, mapActions, mapMutations} from 'vuex';
+import firebaseDatabase from '../middleware/firebase/database'
+import firebaseInstance from "@/middleware/firebase";
+
 
 const stringOptions = [
-  'Eggs', 'Oil', 'Milk', 'Sugar', 'Vanilla sugar', 'yeast', 'flour', 'Vanilla extract', 'chocolate', 'Vanilla pudding'
+  'ביצים', 'שמן', 'חלב', 'סוכר', 'סוכר וניל', 'שמרים', 'קמח', 'תמצית וניל', 'שוקולד', 'פודינג וניל','סוכר חום','סודה לשתייה','מלח','שוקולד ציפס','חמאה'
 ]
 
 export default {
   name: "AddItem",
-  props: ['tableName', 'item'],
+  props: ['tableName'],
+  computed: mapState('recipes',['editedRecipeId','editedRecipe'] ),
+
+
   data() {
     return {
       model: null,
       options: stringOptions,
-
+      file: undefined,
       newIngredient: {},
-      typeOptions: [
-        'Parve', 'Milky'
-      ],
-      diff: [
-        1, 2, 3, 4, 5
-      ],
+      typeOptions: ['פרווה', 'חלבי'],
+      diff: [1, 2, 3, 4, 5],
 
-      newRecipe: {
+      localNewRecipe: {
         name: '',
         type: '',
         ingredients: [],
         preparation: '',
-        difficulty: 0
+        difficulty: 3,
+        image: null
       },
 
       ratingModel: 4,
-      ratingColors: ['light-green-3', 'light-green-6', 'green', 'green-9', 'green-10'
-      ],
+      ratingColors: ['light-green-3', 'light-green-6', 'green', 'green-9', 'green-10'],
     }
   },
   methods: {
-    insert() {
-      // localStorageDriver.insert(this.tableName, this.newRecipe);
-      api.create({entity: this.tableName, data: this.newRecipe})
-          .then(() => {
-            this.newRecipe = {
-              ingredients: [],
-            }
-            this.$emit('itemAdded'); // פה בעצם אנו יוצרים אירוע, כלומר כל פעם שאנחנו עושים הוספה של אייטם יווצר איוונט
-          })
+    ...mapActions('recipes', ['insertRecipe', 'updateRecipe', 'setEditRecipeById','getImageUrl']),
+    ...mapMutations('recipes', ['setEditedRecipe', 'setEditedRecipeId']),
+
+    localSetEditedRecipe() {
+      this.setEditedRecipe(this.localNewRecipe)
     },
-    update() {
-      api.update({entity: this.tableName, id: this.$route.params.id, data: this.newRecipe})
-          .then(() => {
-            this.$router.push(`/back-office`);
-          })
+
+    goToHome() {
+      this.$router.push(`/back-office`);
     },
-    addIngredient() {
-      debugger
-      const obj = {
-        name: this.newIngredient.name,
-        amount: this.newIngredient.amount
+
+    async insert() {
+      if (this.file){
+        const url = await this.getImageUrl()
       }
-      this.newRecipe.ingredients.push(obj)
+      this.localSetEditedRecipe();
+      this.insertRecipe()
+      this.file = ''
+    },
+
+    getImageUrl(){
+      const storage = firebaseInstance.firebase.storage();
+      const storageRef = storage.ref('recipes');
+      const imageRef = storageRef.child(`/${this.file[0].name}`)
+      return imageRef.put(this.file[0])
+          .then(snapshot => {
+            return snapshot.ref.getDownloadURL()
+                .then(url => {
+              this.localNewRecipe.image = url;
+              return url
+            })
+            console.log('Image Uploaded Successfully!');
+          });
+    },
+
+    // deleteImage(){
+    //   const storage = firebaseInstance.firebase.storage();
+    //   const storageRef = storage.ref(`recipes/`);
+    //   storageRef.child(`/${this.file[0].name}`).delete().then(() => {
+    //     console.log('image delete')
+    //     this.localNewRecipe.image = null
+    //   }).catch((error) => {
+    //   });
+    // },
+
+    async update() {
+      if (this.file){
+        const url = await this.getImageUrl()
+      }
+      this.localSetEditedRecipe();
+      this.updateRecipe();
+      this.goToHome();
+    },
+
+    addIngredient() {
+      this.localNewRecipe.ingredients.push(this.newIngredient)
       this.newIngredient = {}
     },
     removeIngredient(foundIndex) {
-      this.newRecipe.ingredients.splice(foundIndex, 1)
+      this.localNewRecipe.ingredients.splice(foundIndex, 1)
     },
+
     filterFn(val, update, abort) {
       if (val.length < 2) {
         abort()
@@ -175,13 +219,43 @@ export default {
     }
   },
   created() {
-    if (this.item) {
-      this.newRecipe = this.item;
-    }
+    this.setEditedRecipeId(this.$route.params.id);
+    this.setEditRecipeById()
+    .then (()=> {
+      Object.assign(this.localNewRecipe, this.editedRecipe)
+    })
   }
 }
 </script>
 
 <style scoped>
+.inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 30px;
+  flex-wrap: wrap;
+  font-family: 'Amatic SC', cursive;
+}
+
+.name {
+  flex-direction: column;
+  justify-content: right;
+  margin: 30px;
+  flex-wrap: wrap;
+  font-family: 'Amatic SC', cursive;
+}
+
+.addImg {
+  flex-direction: row;
+  justify-items: right;
+  width: 300px;
+  max-width: 400px;
+  justify-content: start;
+  flex-wrap: wrap;
+  /*align-items: inherit;*/
+  font-family: 'Amatic SC', cursive;
+  margin: 20px;
+}
 
 </style>

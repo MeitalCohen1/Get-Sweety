@@ -1,78 +1,63 @@
 <template>
   <div class="row">
-    <div class="col-12 col-md">
-      <div class="q-pa-md row items-start q-gutter-md">
-        <q-card class="my-card" flat bordered>
-              <q-item-section>
-                <q-item-label></q-item-label>
-              </q-item-section>
-              <img src="../assets/cake1.webp"
-                   style="height: 150px; max-width: 250px"
-              />
-              <q-card-section>
-                <div class="text-overline text-orange-9">{{ card.name }}</div>
-                <div class="text-h6 q-mt-sm q-mb-xs">{{ card.type }}</div>
-                <div class="text-h6 q-mt-sm q-mb-xs">{{ card.difficulty }}</div>
-                <div class="text-caption text-grey">
-                  <q-item v-for="Ingredient in card.ingredients" :key="Ingredient.name" v-ripple>
-                    <q-item-section>
-                      <q-item-label>{{ Ingredient.name }} {{ Ingredient.amount }}</q-item-label>
-                    </q-item-section>
-                  </q-item>
-                </div>
-                <div class="q-pr-md">
-                  <div class="q-gutter-y-md row">
-                    <q-rating
-                        v-model="card.difficulty"
-                        size="1.5em"
-                        color="grey"
-                        :color-selected="ratingColors"
-                        disable
-                    />
-                  </div>
-                </div>
-              </q-card-section>
+    <div class="q-pa-md row items-start q-gutter-md">
+      <q-card class="my-card">
+        <div class="">
+<!--          <q-btn size="15px" flat round color="red" icon="favorite" style="position: absolute"/>-->
+          <q-btn-toggle
+              size="15px" flat round color="deep-orange-4" icon="favorite" style="position: absolute"
+              v-model="model"
+              toggle-color="red"
+              :options="[
+        {icon: 'favorite', value: 'one'}]"
+          />
+          <img class="img" v-if="!card.image" src="../assets/picCard.jpg" @click="setSelectedRecipe(card.id)">
+          <img class="img" v-else :src="card.image" @click="setSelectedRecipe(card.id)">
+        </div>
 
-              <q-card-actions>
-                <q-btn flat color="dark" label="REMOVE" @click="remove(card.id)"/>
-                <q-btn flat color="primary" label="Book"/>
+        <q-card-actions align="center">
+          <div class="q-pl-md">
+            <div class="name">
+              <div class="text-body2 text-orange-10 text-right">{{ card.name }}</div>
+            </div>
 
-                <q-space/>
-
-                <q-btn
-                    color="grey"
-                    round
-                    flat
-                    dense
-                    :icon="expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-                    @click="expanded = !expanded"
+            <div class="typeDiff row">
+              <div class="rating row">
+                <q-rating
+                    v-model="card.difficulty"
+                    size="1em"
+                    :color-selected="ratingColors"
+                    disable
                 />
-              </q-card-actions>
+              </div>
+              <p style="color: #e37946">|</p>
+              <div class="text-orange-10 text-right">{{ card.type }}</div>
+            </div>
+          </div>
+          <!--          <q-btn flat round color="teal" icon="bookmark"/>-->
+          <!--          <q-btn flat round color="primary" icon="share"/>-->
 
-              <q-slide-transition>
-                <div v-show="expanded">
-                  <q-separator/>
-                  <q-card-section class="text-subitle2">
-                    <div class="text-h6 q-mt-sm q-mb-xs">אופן הכנה: {{ card.preparation }}</div>
-                  </q-card-section>
-                </div>
-              </q-slide-transition>
-        </q-card>
+        </q-card-actions>
+      </q-card>
     </div>
-  </div>
-
 
   </div>
 </template>
 
 <script>
-import localStorageDriver from "@/middleware/local-storage";
+import OneCard from "@/views/OneCard";
+
+import {mapMutations} from "vuex";
 
 export default {
   name: "CardViewer",
   props: ['tableName', 'card'],
+  components: {
+    OneCard,
+  },
   data() {
     return {
+      model: null,
       expanded: false,
       cards: [],
       ingredients: [],
@@ -80,20 +65,47 @@ export default {
     }
   },
   methods: {
-    read() {
-      this.data = localStorageDriver.select(this.tableName); // אני רוצה בעת הטעינה של ה-COMP לעשות שליפה מהלוקאל סטוראז' ובעצם להביא את הנתונים
-
-    },
-    remove(id) {
-      localStorageDriver.remove(this.tableName, id);
-      this.read()
-    },
-  }
+    ...mapMutations('recipes', ['setSelectedRecipe']),
+  },
 }
-
 </script>
 
 
 <style scoped>
+.my-card {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 20px;
+
+}
+
+.name {
+  display: flex;
+  flex-direction: row;
+  /*align-items: center;*/
+  position: center;
+}
+
+.img {
+  width: 100%;
+  height: 200px;
+  /*margin-top: -50px;*/
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.typeDiff {
+  flex-direction: row;
+  /*margin: -15px;*/
+  justify-content: space-between;
+}
+
+.rating {
+  /*left: 30px;*/
+  justify-content: left;
+  /*margin: -60px;*/
+  /*padding: -50px;*/
+  align-self: start;
+}
 
 </style>

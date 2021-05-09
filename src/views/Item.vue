@@ -1,14 +1,15 @@
 <template>
   <div>
-    <AddItem v-if="item.id" :item="item" :tableName="tableName"></AddItem>
+    <AddItem :tableName="tableName"></AddItem>
     <!--    פה צריך להעביר לו את האייטם ואת הטייבל אז צריך להעביר דרך פרופס-->
   </div>
 </template>
 
 <script>
 // import localStorageDriver from '../middleware/local-storage';
+// import api from '../middleware/api';
 import AddItem from "@/components/AddItem";
-import api from '../middleware/api';
+import firebaseDatabase from '../middleware/firebase/database'
 
 
 export default {
@@ -18,20 +19,15 @@ export default {
   },
   data() {
     return {
-      item: {},
+      item: undefined,
       tableName: 'tableRecipes'
     }
   },
   methods: {
-    get() {
-      api.get({entity: this.tableName, id: this.$route.params.id})
-          .then((res) => {
-            this.item = res
-          })
-    }
+
   },
   created() { // בעת טעינת ה-COMP תפעיל את הפונ' GET שהוא ילך וימשוך את זה מהסטוראז' לפי ID וילך ויחזיר לנו  את אותו האייטם
-    this.get();
+    // this.get();
   }
 }
 </script>

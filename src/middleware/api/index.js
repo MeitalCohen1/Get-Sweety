@@ -12,7 +12,6 @@ export default {
             .then(response => {
                 console.log(response);
                 if (options.id) {
-                    debugger
                     return response.data.result[0]
                 }
                 return response.data;

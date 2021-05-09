@@ -1,11 +1,20 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store'
 import './quasar'
+import VueToastify from "vue-toastify";
+Vue.use(VueToastify);
+import firebaseInstance from './middleware/firebase'
 
 Vue.config.productionTip = false
 
-new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app')
+firebaseInstance.firebase.auth().onAuthStateChanged((user) => {
+    window.user = user;
+    new Vue({
+        router,
+        store,
+        render: h => h(App)
+    }).$mount('#app')
+})
+

@@ -1,8 +1,8 @@
 <template>
   <div class="home">
 
-    <AddItem :tableName="'tableRecipes'" @itemAdded="reloadTable"/>
-    <TableViewer :tableName="'tableRecipes'" :isReload="isReload"/>
+    <AddItem/>
+    <TableViewer />
 
   </div>
 </template>
@@ -10,6 +10,7 @@
 <script>
 import AddItem from "@/components/AddItem";
 import TableViewer from "@/components/TableViewer";
+import {mapState, mapActions, mapMutations} from 'vuex';
 
 export default {
   name: "BackOffice",
@@ -19,13 +20,13 @@ export default {
   },
   data() {
     return {
-      isReload: false
+      // isReload: false
     }
   },
   methods: {
-    reloadTable() {
-      this.isReload = !this.isReload;
-    }
+    // reloadTable() {
+    //   this.isReload = !this.isReload;
+    // }
   }
 }
 </script>

@@ -1,19 +1,33 @@
 <template>
   <q-layout view="lHh Lpr lFf">
 
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <q-page-container>
-      <router-view/>
-    </q-page-container>
+    <div id="q-app">
 
-  </div>
+      <q-page-container>
+        <router-view/>
+      </q-page-container>
+
+    </div>
   </q-layout>
 </template>
 
+<script>
+
+import firebaseInstance from "@/middleware/firebase";
+
+export default {
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+
+  }
+}
+
+
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
