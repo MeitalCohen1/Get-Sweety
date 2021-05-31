@@ -41,8 +41,6 @@ export default {
   name: "Ingredients",
   data() {
     return {
-      // ingredientsList:[],
-
       ingredientsList: [],
       options: [
         {
@@ -115,7 +113,6 @@ export default {
 
     async search() {
       const ingredientsList = await this.setSelectedByIngredients(this.options)
-      debugger
       const allOfRecipes = this.filterByIngredients()(ingredientsList)
       this.$emit('searchIsClicked', allOfRecipes)
       this.openDialog()

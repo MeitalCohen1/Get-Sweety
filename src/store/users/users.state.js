@@ -1,9 +1,7 @@
 export default {
-    user: {
-          // email: '',
-          // dense: false,
-          // fullName: '',
-          // sweet: false,
-          // salt: false,
-    },
+    user: {},
+    users: [],
+    userId: '',
+    favorite: [],
+    favorites: [],
 }

@@ -1,23 +1,11 @@
 <template>
   <div class="main">
-
     <div class="q-pa-md">
       <q-toolbar class="bg-deep-orange-4 text-white q-my-md shadow-4">
-
-        <q-btn flat round dense icon="menu" class="q-mr-sm"/>
+        <q-btn flat round dense icon="menu" class="q-mr-sm"  />
         <q-space/>
-        <q-btn-toggle
-            v-model="model"
-            flat stretch
-            toggle-color="yellow"
-            :options="[
-
-          // {label: 'Two', value: 'two'},
-          // {label: 'Three', value: 'three'}
-        ]"
-        />
+        <q-btn flat dense label="אזור אישי" class="q-mr-sm" @click=moveToProfile() />
         <q-btn @click="logout()" icon="logout"> Log out</q-btn>
-
       </q-toolbar>
     </div>
 
@@ -50,6 +38,7 @@ import Ingredients from "@/components/Ingredients";
 
 export default {
   name: "Recipes",
+  // props: ['users'],
   components: {
     CardViewer, OneCard, Ingredients
   },
@@ -58,39 +47,48 @@ export default {
     isClicked: false,
     searchInput: '',
     milkyData: [],
+    users: [],
     filtered: [],
     tableName: 'tableRecipes',
     model: 'two',
   }),
   computed: {
     ...mapState('recipes', ['recipes', 'selectedRecipe']),
+    ...mapState('users', ['userId'])
   },
 
   methods: {
     ...mapActions('recipes', ['getRecipes']),
+    ...mapActions('users', ['getUser', 'getFavorites']),
     ...mapMutations('recipes', ['openDialog']),
     ...mapGetters('recipes', ['filterByType']),
 
-    getResult(value){
+    getResult(value) {
       this.filtered = value;
-
-      if(!this.filtered.length) {
-       this.$vToastify.warning("אין מתכון מתאים לפי בקשתך")
+      if (!this.filtered.length) {
+        this.$vToastify.warning("אין מתכון מתאים לפי בקשתך")
       }
     },
+
     filterType(type) {
       this.filtered = this.filterByType()(type)
     },
+
     logout() {
       firebaseInstance.firebase.auth().signOut().then(() => {
         this.$router.push('/home')
       }).catch((error) => {
       });
     },
+
+    async moveToProfile() {
+      await this.$router.push(`/profile/${window.user.uid}`)
+    }
   },
 
   created() {
     this.getRecipes()
+    this.getFavorites()
   }
 }
 
@@ -114,8 +112,6 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   width: 300px;
-  /*margin-right: auto;*/
-  /*margin-left: auto;*/
   flex-wrap: wrap;
   align-items: center;
   font-family: 'Amatic SC', cursive;

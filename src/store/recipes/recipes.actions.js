@@ -57,16 +57,16 @@ export default {
         return database.addImage({entity: 'recipes', file: file})
     },
 
-    deleteImg() {
-        const self = this
-        const storage = firebaseInstance.firebase.storage();
-        const storageRef = storage.ref(`recipes/`);
-        storageRef.child(`/${this.file[0].name}`).delete().then(() => {
-            console.log('image delete')
-            self.localNewRecipe.image = null
-        }).catch((error) => {
-        });
-    },
+    // deleteImg() {
+    //     const self = this
+    //     const storage = firebaseInstance.firebase.storage();
+    //     const storageRef = storage.ref(`recipes/`);
+    //     storageRef.child(`/${this.file[0].name}`).delete().then(() => {
+    //         console.log('image delete')
+    //         self.localNewRecipe.image = null
+    //     }).catch((error) => {
+    //     });
+    // },
 
     googleLogin: ({state, commit}) => {
         return database.googleProvider()
@@ -84,5 +84,5 @@ export default {
             }
         }
         return ingredientsList;
-    }
+    },
 }

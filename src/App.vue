@@ -13,7 +13,10 @@
 
 <script>
 
+
+
 import firebaseInstance from "@/middleware/firebase";
+import database from 'firebase/database';
 
 export default {
   data() {

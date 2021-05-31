@@ -60,6 +60,7 @@ export default {
             // The signed-in user info.
             var user = result.user;
             const newUser = user.providerData[0]
+            newUser.uid = user.uid;
             window.user = result.user;
             database.setUser({user: newUser}).then(() => {
               debugger

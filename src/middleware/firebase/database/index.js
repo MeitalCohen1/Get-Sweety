@@ -21,19 +21,25 @@ function read(options) {
             } else {
                 const arr = [];
                 const map = res.val();
-               for (const key in map) {
+                for (const key in map) {
                     const item = map[key];
                     item.id = key
                     arr.push(item)
                 }
-               return arr;
+                return arr;
             }
         })
 }
 
+function getUser(options) {
+    return firebaseInstance.firebase.database().ref(`${options.entity}`).once("value")
+        .then(res => {
+            return res.val();
+        })
+}
+
 function getById(options) {
-    return firebaseInstance.firebase.database()
-        .ref(`${options.entity}/${options.id}`).once('value')
+    return firebaseInstance.firebase.database().ref(`${options.entity}/${options.id}`).once('value')
         .then(res => {
             return res.val();
         })
@@ -41,7 +47,6 @@ function getById(options) {
 
 function setUser(options) {
     return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data`).set(options.user);
-
 }
 
 function create(options) {
@@ -68,6 +73,41 @@ function addImage(options) {
             console.log('Image Uploaded Successfully!');
         });
 }
+
+// >>> GET THIS CURRENT LOGGED IN USER ID <<<< //
+function getUserById(id) {
+    return firebaseInstance.firebase.database().ref(`users/${window.user.uid}`).get()
+        .then(res => {
+            return res.val();
+        })
+}
+
+function addRecipeToUser(recipe) {
+    return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data/favorite`).push(recipe)
+        .then(r => console.log('sucess!!!'))
+        .catch(e => console.log(e.message));
+}
+
+function removeRecipeFromUser(recipe) {
+    return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data/favorite/${recipe}`).remove()
+        .then(r => console.log('sucess!!!'))
+        .catch(e => console.log(e.message));
+}
+
+function readFavorites() {
+   return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data/favorite`).once('value')
+        .then(res => {
+            const arr = [];
+            const map = res.val();
+            for (const key in map) {
+                const item = map[key];
+                item.id = key
+                arr.push(item)
+            }
+            return arr;
+        })
+}
+
 //
 // function googleProvider() {
 //     var provider = new firebaseInstance.firebase.auth.GoogleAuthProvider();
@@ -110,4 +150,9 @@ export default {
     setUser,
     getById,
     addImage,
+    getUserById,
+    getUser,
+    addRecipeToUser,
+    removeRecipeFromUser,
+    readFavorites,
 }

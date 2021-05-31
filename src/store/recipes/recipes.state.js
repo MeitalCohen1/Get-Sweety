@@ -10,7 +10,6 @@ export default {
         image: null
     },
     selectedRecipe: undefined,
-    // filterRecipe:'',
     ingredients: [],
     user: {},
     isClicked:false,

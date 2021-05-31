@@ -120,7 +120,6 @@ export default {
   props: ['tableName'],
   computed: mapState('recipes',['editedRecipeId','editedRecipe'] ),
 
-
   data() {
     return {
       model: null,
