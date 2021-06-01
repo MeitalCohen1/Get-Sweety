@@ -5,16 +5,29 @@ export default {// רק למיוטיישן מותר לבצע שינוי לסטי
     }),
 
     setFavorites: ((state, favorites) => {
-       state.favorites = favorites
+        // state.favorites.push(favorites)
+        state.favorites = favorites
     }),
 
-    setRecipeToUser: ((state, recipe) => {
-        state.favorite.push(recipe)
+    setRecipeToUser: ((state, recipeObj) => {
+        let favorites = state.favorites
+        Object.assign(favorites,recipeObj)
+        state.favorites = favorites
     }),
 
-    setRemoveRecipeToUser: ((state, recipe) => {
-        const index = state.favorites.findIndex(r => r.id === recipe)
-        state.favorite.splice(index, 1);
+    // resetFavorite: ((state) => {
+    // state.favorite = ''
+    // }),
+
+    setRemoveRecipeToUser: ((state, recipeId) => {
+        // delete state.favorites[recipe]
+        let localFavorites = state.favorites
+        for (const recipe in localFavorites) {
+            if (localFavorites[recipe] === recipeId) {
+                delete localFavorites[recipe]
+            }
+        }
+        state.favorites = localFavorites
     }),
 
     // setUserId: ((state, id) => {

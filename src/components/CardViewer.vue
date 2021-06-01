@@ -51,13 +51,16 @@
 <script>
 import OneCard from "@/views/OneCard";
 
-import {mapMutations, mapActions} from "vuex";
+import {mapMutations, mapActions, mapState} from "vuex";
 
 export default {
   name: "CardViewer",
-  props: ['tableName', 'card'],
+  props: ['tableName', 'card', 'recipeId'],
   components: {
     OneCard,
+  },
+  computed: {
+    ...mapState('users',['favorites'])
   },
   data() {
     return {
@@ -71,16 +74,22 @@ export default {
   methods: {
     ...mapMutations('recipes', ['setSelectedRecipe']),
     ...mapActions('users', ['addRecipeToUser', 'removeRecipeFromUser']),
-    addToUser(recipe) {
-      this.addRecipeToUser(recipe)
-      this.model = !this.model;
+    addToUser() {
+      this.addRecipeToUser(this.recipeId)
+      this.model = true;
     },
 
-     removeFavoriteFromUser(recipe) {
-      this.removeRecipeFromUser(recipe)
-      this.model = !this.model;
+     removeFavoriteFromUser() {
+      this.removeRecipeFromUser({
+        dbKey : this.favorites[this.recipeId],
+        recipeId : this.recipeId
+      })
+      this.model = false;
     }
   },
+  created() {
+    this.model =  (this.favorites[this.recipeId]) ? true : false;
+  }
 }
 </script>
 

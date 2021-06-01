@@ -3,5 +3,5 @@ export default {
     users: [],
     userId: '',
     favorite: [],
-    favorites: [],
+    favorites: {},
 }

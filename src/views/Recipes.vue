@@ -23,7 +23,7 @@
     <Ingredients @searchIsClicked="getResult"/>
 
     <div class="row wrap cards">
-      <CardViewer v-for="card in ((filtered.length && filtered ) || recipes)" :card="card" :key="card.id"/>
+      <CardViewer v-for="card in ((filtered.length && filtered ) || recipes)" :card="card" :recipeId="card.id" :key="card.id"/>
       <OneCard v-if="selectedRecipe"></OneCard>
     </div>
   </div>
@@ -87,8 +87,8 @@ export default {
   },
 
   created() {
-    this.getRecipes()
     this.getFavorites()
+    this.getRecipes()
   }
 }
 

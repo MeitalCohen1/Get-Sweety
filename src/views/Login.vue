@@ -63,7 +63,6 @@ export default {
             newUser.uid = user.uid;
             window.user = result.user;
             database.setUser({user: newUser}).then(() => {
-              debugger
               self.setUser(newUser)
               localStorage.setItem('user', JSON.stringify(newUser))
             })

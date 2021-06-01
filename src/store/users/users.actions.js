@@ -24,18 +24,17 @@ export default {
 
     getFavorites: async ({commit}) => {
         const favorites = await database.readFavorites({entity: `users'/${window.user.uid}/data/favorite`});
+        console.log('FAVORITE', favorites)
         commit('setFavorites', favorites)
     },
 
-    addRecipeToUser: async ({state, commit}, recipe) => {
-        await database.addRecipeToUser(recipe)
-        commit('setRecipeToUser', recipe);
-        return recipe;
+    addRecipeToUser: async ({state, commit}, recipeId) => {
+        const recipeDbKey = await database.addRecipeToUser(recipeId)
+        commit('setRecipeToUser', {[recipeId]:recipeDbKey});
     },
 
-    removeRecipeFromUser: async ({state, commit}, recipe) => {
-        await database.removeRecipeFromUser(recipe)
-        commit('setRemoveRecipeToUser', recipe);
-        // return recipe;
+    removeRecipeFromUser: async ({state, commit}, recipeObj) => {
+        await database.removeRecipeFromUser(recipeObj.dbKey)
+        commit('setRemoveRecipeToUser', recipeObj.recipeId);
     }
 }

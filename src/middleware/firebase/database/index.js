@@ -1,6 +1,7 @@
 import firebaseInstance from '../';
 import database from 'firebase/database';
 import storage from 'firebase/storage';
+import functions from 'firebase/functions'
 
 
 function getRef(options) {
@@ -82,31 +83,63 @@ function getUserById(id) {
         })
 }
 
-function addRecipeToUser(recipe) {
-    return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data/favorite`).push(recipe)
-        .then(r => console.log('sucess!!!'))
+function addRecipeToUser(recipeId) {
+    return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data/favorite`).push(recipeId)
+        .then(r => {
+            console.log('Added to favorites successfully')
+            return r.getKey()
+        })
         .catch(e => console.log(e.message));
 }
 
-function removeRecipeFromUser(recipe) {
-    return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data/favorite/${recipe}`).remove()
-        .then(r => console.log('sucess!!!'))
+function removeRecipeFromUser(recipeId) {
+    return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data/favorite/${recipeId}`).remove()
+        .then(r => console.log('Removed from favorites successfully'))
         .catch(e => console.log(e.message));
 }
 
 function readFavorites() {
-   return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data/favorite`).once('value')
+    return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data/favorite`).once('value')
         .then(res => {
-            const arr = [];
-            const map = res.val();
-            for (const key in map) {
-                const item = map[key];
-                item.id = key
-                arr.push(item)
+            if (!res.val()) {
+                return {};
+            } else {
+                let favorites = {}
+                for (const favorite in res.val()) {
+                    favorites[res.val()[favorite]] = favorite
+                }
+                return favorites
+              // return Object.keys(res.val())
             }
-            return arr;
         })
 }
+
+async function callAble(data) {
+    const {number} = data;
+    const {recipe} = data;
+    const sendToWhatsApp = firebaseInstance.firebase.functions().httpsCallable('sendRecipeInWhatApp');
+    await sendToWhatsApp({number, recipe})
+        .then(r => console.log('Success'))
+        .catch(e => console.log(e))
+}
+
+
+export default {
+    read,
+    create,
+    remove,
+    update,
+    getRef,
+    setUser,
+    getById,
+    addImage,
+    getUserById,
+    getUser,
+    addRecipeToUser,
+    removeRecipeFromUser,
+    readFavorites,
+}
+
 
 //
 // function googleProvider() {
@@ -140,19 +173,3 @@ function readFavorites() {
 // }
 //
 //
-
-export default {
-    read,
-    create,
-    remove,
-    update,
-    getRef,
-    setUser,
-    getById,
-    addImage,
-    getUserById,
-    getUser,
-    addRecipeToUser,
-    removeRecipeFromUser,
-    readFavorites,
-}
