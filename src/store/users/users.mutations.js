@@ -1,11 +1,10 @@
-export default {// רק למיוטיישן מותר לבצע שינוי לסטייט
+export default {
 
     setUser: ((state, user) => {
         state.user = user
     }),
 
     setFavorites: ((state, favorites) => {
-        // state.favorites.push(favorites)
         state.favorites = favorites
     }),
 
@@ -15,12 +14,7 @@ export default {// רק למיוטיישן מותר לבצע שינוי לסטי
         state.favorites = favorites
     }),
 
-    // resetFavorite: ((state) => {
-    // state.favorite = ''
-    // }),
-
     setRemoveRecipeToUser: ((state, recipeId) => {
-        // delete state.favorites[recipe]
         let localFavorites = state.favorites
         for (const recipe in localFavorites) {
             if (localFavorites[recipe] === recipeId) {
@@ -30,7 +24,7 @@ export default {// רק למיוטיישן מותר לבצע שינוי לסטי
         state.favorites = localFavorites
     }),
 
-    // setUserId: ((state, id) => {
-    //     state.userId = id.data.uid
-    // })
+    setUserRecipes: ((state, userRecipes) => {
+        state.userRecipes = userRecipes
+    }),
 }

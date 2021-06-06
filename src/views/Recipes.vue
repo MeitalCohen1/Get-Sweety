@@ -1,8 +1,8 @@
 <template>
   <div class="main">
-    <div class="q-pa-md">
-      <q-toolbar class="bg-deep-orange-4 text-white q-my-md shadow-4">
-        <q-btn flat round dense icon="menu" class="q-mr-sm"  />
+    <div class="q-pa-md q-gutter-y-sm">
+      <q-toolbar class="bg-deep-orange-4 text-white shadow-4">
+        <q-btn flat round dense icon="menu"/>
         <q-space/>
         <q-btn flat dense label="אזור אישי" class="q-mr-sm" @click=moveToProfile() />
         <q-btn @click="logout()" icon="logout"> Log out</q-btn>
@@ -14,6 +14,7 @@
       <br>
       מה תרצה לקינוח?
     </div>
+
 
     <div class="Button">
       <q-btn unelevated rounded color="deep-orange-4" label="מרכיבים" @click="openDialog()"/>
@@ -38,7 +39,6 @@ import Ingredients from "@/components/Ingredients";
 
 export default {
   name: "Recipes",
-  // props: ['users'],
   components: {
     CardViewer, OneCard, Ingredients
   },
@@ -54,7 +54,7 @@ export default {
   }),
   computed: {
     ...mapState('recipes', ['recipes', 'selectedRecipe']),
-    ...mapState('users', ['userId'])
+    ...mapState('users', ['userId', 'favorites'])
   },
 
   methods: {

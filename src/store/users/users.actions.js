@@ -23,8 +23,7 @@ export default {
     },
 
     getFavorites: async ({commit}) => {
-        const favorites = await database.readFavorites({entity: `users'/${window.user.uid}/data/favorite`});
-        console.log('FAVORITE', favorites)
+        const favorites = await database.readFavorites({entity: `users/${window.user.uid}/data/favorite`});
         commit('setFavorites', favorites)
     },
 
@@ -36,5 +35,11 @@ export default {
     removeRecipeFromUser: async ({state, commit}, recipeObj) => {
         await database.removeRecipeFromUser(recipeObj.dbKey)
         commit('setRemoveRecipeToUser', recipeObj.recipeId);
+    },
+
+    getUserRecipes: async ({commit}) => {
+       const userRecipes = await database.readUserRecipes( `users/${window.user.uid}/data/favorite`);
+        commit('setUserRecipes', userRecipes)
+        return userRecipes;
     }
 }

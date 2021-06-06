@@ -40,7 +40,6 @@ export default {
         recipe.id = (await database.create({entity: 'recipes', recipe})).key
         commit('resetEditedRecipe')
         commit('insertRecipe', recipe)
-
     },
 
     setEditRecipeById: async ({state, commit}) => {

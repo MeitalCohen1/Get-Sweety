@@ -3,18 +3,12 @@
     <div class="q-pa-md row items-start q-gutter-md">
       <q-card class="my-card">
         <div class="">
-          <!--          <q-btn size="15px" flat round color="deep-orange-4" icon="favorite" @click="addToUser({model, id:card.id})"style="position: absolute"/>-->
-          <!--          <q-btn-toggle-->
-          <!--              size="15px" flat round color="deep-orange-4" icon="favorite" @click="addToUser({model, id:card.id})" style="position: absolute"-->
-          <!--              v-model="model"-->
-          <!--              toggle-color="white"-->
-          <!--              :options="[-->
-          <!--        {icon: 'favorite', value: 'true'}]"-->
-          <!--          />-->
           <q-btn v-model="model" flat round size="15px" icon="favorite" color="red" style="position: absolute"
                  @click="removeFavoriteFromUser(card.id)" v-if="model"/>
+
           <q-btn v-model="model" flat round size="15px" icon="favorite" color="deep-orange-4" style="position: absolute"
                  v-if="!model" @click="addToUser(card.id)"/>
+
           <img class="img" v-if="!card.image" src="../assets/picCard.jpg" @click="setSelectedRecipe(card.id)">
           <img class="img" v-else :src="card.image" @click="setSelectedRecipe(card.id)">
         </div>
@@ -60,10 +54,11 @@ export default {
     OneCard,
   },
   computed: {
-    ...mapState('users',['favorites'])
+    ...mapState('users',['favorites', 'userRecipes'])
   },
   data() {
     return {
+      profileMode: false,
       model: false,
       expanded: false,
       cards: [],

@@ -18,7 +18,7 @@ function read(options) {
     return ref.once('value')
         .then(res => {
             if (options.id) {
-                return res.val()
+                return res.val();
             } else {
                 const arr = [];
                 const map = res.val();
@@ -109,9 +109,26 @@ function readFavorites() {
                     favorites[res.val()[favorite]] = favorite
                 }
                 return favorites
-              // return Object.keys(res.val())
             }
         })
+}
+
+ async function readUserRecipes(ref) {
+    let favoritesRecipesId = {};
+    let favoriteRecipes = {};
+    const favoritesIds = (await firebaseInstance.firebase.database().ref(ref).once('value')).val();
+     if (!favoritesIds)
+        return favoritesRecipesId;
+     else {
+        for (const key in favoritesIds) {
+            favoritesRecipesId[favoritesIds[key]] = key
+        }
+        for (const favoritesKey in favoritesRecipesId) {
+            const favoriteRecipe =  (await firebaseInstance.firebase.database().ref(`recipes/${favoritesKey}`).once('value')).val();
+            favoriteRecipes[favoritesKey] = favoriteRecipe;
+        }
+    }
+    return favoriteRecipes;
 }
 
 async function callAble(data) {
@@ -138,6 +155,7 @@ export default {
     addRecipeToUser,
     removeRecipeFromUser,
     readFavorites,
+    readUserRecipes,
 }
 
 
