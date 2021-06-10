@@ -27,4 +27,12 @@ export default {
     setUserRecipes: ((state, userRecipes) => {
         state.userRecipes = userRecipes
     }),
+
+    openDialog: ((state) => {
+        state.isClicked = !state.isClicked;
+    }),
+
+    closeDialog: ((state) => {
+        state.isClicked = !state.isClicked;
+    }),
 }

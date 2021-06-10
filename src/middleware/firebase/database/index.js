@@ -113,18 +113,18 @@ function readFavorites() {
         })
 }
 
- async function readUserRecipes(ref) {
+async function readUserRecipes(ref) {
     let favoritesRecipesId = {};
     let favoriteRecipes = {};
     const favoritesIds = (await firebaseInstance.firebase.database().ref(ref).once('value')).val();
-     if (!favoritesIds)
+    if (!favoritesIds)
         return favoritesRecipesId;
-     else {
+    else {
         for (const key in favoritesIds) {
             favoritesRecipesId[favoritesIds[key]] = key
         }
         for (const favoritesKey in favoritesRecipesId) {
-            const favoriteRecipe =  (await firebaseInstance.firebase.database().ref(`recipes/${favoritesKey}`).once('value')).val();
+            const favoriteRecipe = (await firebaseInstance.firebase.database().ref(`recipes/${favoritesKey}`).once('value')).val();
             favoriteRecipes[favoritesKey] = favoriteRecipe;
         }
     }

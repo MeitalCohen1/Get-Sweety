@@ -2,26 +2,21 @@
   <q-layout view="lHh Lpr lFf">
 
     <div id="q-app">
-
       <q-page-container>
         <router-view/>
       </q-page-container>
-
     </div>
+
   </q-layout>
 </template>
 
+
 <script>
-
-
-
 import firebaseInstance from "@/middleware/firebase";
 import database from 'firebase/database';
-
 export default {
   data() {
     return {
-
     }
   },
   methods: {

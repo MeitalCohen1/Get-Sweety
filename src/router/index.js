@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
-import Login from '../views/Login.vue'
+import Login from '../components/Login.vue'
 import Test from '../views/Test.vue';
 import firebaseInstance from '../middleware/firebase'
 
@@ -24,7 +24,7 @@ const routes = [
     {
         path: '/register',
         name: 'Register',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue'),
+        component: () => import(/* webpackChunkName: "about" */ '../components/Register.vue'),
         meta: {authNotRequired: true}
 
     },

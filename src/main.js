@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import './quasar'
 import VueToastify from "vue-toastify";
+
 Vue.use(VueToastify);
 import firebaseInstance from './middleware/firebase'
 

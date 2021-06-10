@@ -1,5 +1,4 @@
 <template>
-
   <div class="register" dir="rtl">
     <q-input color="orange" v-model="localUser.fullName" label="שם מלא" dir="rtl">
       <template v-slot:prepend>
@@ -28,30 +27,29 @@
 
     <div class="checkBox q-gutter-sm">
       <p> העדפה למתכונים :</p>
-      <q-checkbox dense v-model="localUser.sweet" label="מתוק" color="orange"/>
-      <q-checkbox dense v-model="localUser.salt" label="מלוח" color="orange"/>
+      <q-checkbox dense v-model="localUser.sweet" label="מתוק" color="deep-orange-4"/>
+      <q-checkbox dense v-model="localUser.salt" label="מלוח" color="deep-orange-4"/>
     </div>
 
     <!--    <q-input v-model="email" label="Email" :dense="dense"/>-->
     <!--    <q-input v-model="password" label="Password" :dense="dense"/>-->
 
-    <q-btn @click="signUp()">הירשם</q-btn>
+    <q-btn @click="signUp()" color="deep-orange-4">הירשם</q-btn>
 
     <br>
-<!--    <p> או </p>-->
-<!--    <br>-->
-<!--    <div class="registerBtn">-->
-<!--      <q-btn class="glossy" icon="facebook" @click="facebookRegister()" rounded color="primary" label="FACEBOOK"/>-->
-<!--      <q-btn class="glossy" icon="Google" @click="googleRegister()" rounded color="orange-10" label="GOOGLE"/>-->
-<!--    </div>-->
+    <!--    <p> או </p>-->
+    <!--    <br>-->
+    <!--    <div class="registerBtn">-->
+    <!--      <q-btn class="glossy" icon="facebook" @click="facebookRegister()" rounded color="primary" label="FACEBOOK"/>-->
+    <!--      <q-btn class="glossy" icon="Google" @click="googleRegister()" rounded color="orange-10" label="GOOGLE"/>-->
+    <!--    </div>-->
   </div>
 </template>
 
 <script>
 import firebaseInstance from '../middleware/firebase'
 import firebaseDatabase from '../middleware/firebase/database'
-import {mapActions, mapMutations, mapState} from 'vuex';
-
+import {mapActions, mapState} from 'vuex';
 
 
 export default {
@@ -68,7 +66,6 @@ export default {
         sweet: false,
         salt: false,
       }
-
     }
   },
   methods: {
@@ -80,7 +77,7 @@ export default {
             var user = userCredential.user;
             window.user = user
             const newUser = user.providerData[0]
-            firebaseDatabase.setUser({user:newUser})
+            firebaseDatabase.setUser({user: newUser})
             // this.$router.push('/home')
             console.log(user)
           })
@@ -97,16 +94,15 @@ export default {
 
 .register {
   display: flex;
-  max-width: 400px;
   flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  font-family: 'Amatic SC', cursive;
+  font-family: Arial;
   width: 300px;
+  height: 500px;
   margin-right: auto;
   margin-left: auto;
-
 }
 
 .checkBox {

@@ -1,7 +1,5 @@
 <template>
   <div class="login" dir="rtl">
-
-    <!--    <img class="blabla" src="https://veg.co.il/wp-content/uploads/vegan-pancake-1932x942.jpg" style="width:500px">-->
     <q-input color="orange" v-model="email" label="אימייל" dir="ltr">
       <template v-slot:prepend>
         <q-icon name="email"/>
@@ -13,18 +11,15 @@
         <q-icon name="lock"/>
       </template>
     </q-input>
-
     <br>
-    <q-btn @click="loginWithEmailPassword()">התחבר</q-btn>
-
+    <q-btn color="deep-orange-4" @click="loginWithEmailPassword()">התחבר</q-btn>
     <br>
     <p> או </p>
     <br>
     <div class="loginBtn">
-      <q-btn class="glossy" icon="facebook" @click="facebookRegister()" rounded color="primary" label="FACEBOOK"/>
-      <q-btn class="glossy" icon="Google" @click="googleProvider()" rounded color="orange-10" label="GOOGLE"/>
+      <q-btn style="margin-bottom: 20px" @click="facebookRegister()" rounded color="primary" label="FACEBOOK"/>
+      <q-btn style="text-align:center" @click="googleProvider()" outline rounded color="red" label="GOOGLE"/>
     </div>
-
   </div>
 </template>
 
@@ -107,13 +102,13 @@ export default {
 <style scoped>
 .login {
   display: flex;
-  max-width: 400px;
   flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  font-family: 'Amatic SC', cursive;
+  font-family: Arial;
   width: 300px;
+  height:500px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -121,8 +116,8 @@ export default {
 .loginBtn {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 10px;
+  /*justify-content: space-between;*/
+
 }
 
 </style>

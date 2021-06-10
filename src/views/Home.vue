@@ -1,87 +1,56 @@
 <template>
   <div class="home" dir="rtl">
     <div class="header-container">
-        <q-parallax>
-          <template v-slot:media>
-            <img src="../assets/background2.jpg" class="background">
-          </template>
-        </q-parallax>
+      <q-parallax>
+        <template v-slot:media>
+          <img src="../assets/background2.jpg" class="background">
+        </template>
+      </q-parallax>
       <q-layout view="lHh lpr lFf" container style="height: 100px" class="bg-white rounded-borders">
         <q-header elevated class="bg-deep-orange-3">
           <q-toolbar>
-            <q-btn flat round dense icon="assignment_ind"/>
+            <!--            <q-btn flat round dense icon="assignment_ind"/>-->
 
             <q-space/>
             <div class="head text-h3 text-white headLine">GET SWEETY</div>
-            <q-btn flat round dense icon="sim_card" class="q-mr-xs"/>
-            <q-btn flat round dense icon="gamepad"/>
+            <!--            <q-btn flat round dense icon="sim_card" class="q-mr-xs"/>-->
+            <!--            <q-btn flat round dense icon="gamepad"/>-->
           </q-toolbar>
 
           <q-toolbar inset>
             <q-breadcrumbs active-color="white" style="font-size: 16px">
               <q-breadcrumbs-el label="בית" icon="home" @click="$router.push('/home')"/>
               <q-breadcrumbs-el label="מתכונים" icon="restaurant" class="recipes" @click="$router.push('/recipes')"/>
-              <q-breadcrumbs-el label="התנתקות" icon="logout" @click="logout()"/>
+              <q-breadcrumbs-el label="התחבר / הירשם" icon="people" @click="openDialog()"/>
             </q-breadcrumbs>
           </q-toolbar>
+          <Auth/>
         </q-header>
       </q-layout>
     </div>
 
-<div class="sub-container">
-    <div class="container">
+    <div class="sub-container">
+      <div class="container">
         <img class="img1" src="../assets/picHome1.jpg"
         />
-      <div class="home-text">
-        ברוכים הבאים לאפליקציה - Get sweety! <br>
-        אנו כאן כדי לעזור לכם למצוא את המתכון המתאים ביותר עבורכם בהתאם למצרכים שיש לכם כרגע בבית <br>
-        אז איך זה קורה?!
+        <div class="home-text">
+          ברוכים הבאים לאפליקציה - Get sweety! <br>
+          אנו כאן כדי לעזור לכם למצוא את המתכון המתאים ביותר עבורכם בהתאם למצרכים שיש לכם כרגע בבית <br>
+          אז איך זה קורה?!
+        </div>
       </div>
-    </div>
 
-    <div class="container">
-      <div class="home-text">
-        קודם כל אתם בוחרים מה בא לכם? חלבי או פרווה?<br>
-        לאחר מכן, אתם בוחרים את המצרכים שיש ברשותכם<br>
-        ואנחנו נציע לכם את המתכונים המתאימים<br>
-        אז למה אתם מחכים? תתחברו ונתחיל להכין יחד דברים סופר טעימים! <br>
-        <br>
-      </div>
+      <div class="container">
+        <div class="home-text">
+          קודם כל אתם בוחרים מה בא לכם? חלבי או פרווה?<br>
+          לאחר מכן, אתם בוחרים את המצרכים שיש ברשותכם<br>
+          ואנחנו נציע לכם את המתכונים המתאימים<br>
+          אז למה אתם מחכים? תתחברו ונתחיל להכין יחד דברים סופר טעימים! <br>
+          <br>
+        </div>
         <img class="img2" src="../assets/picHome2.jpg"
         />
-    </div>
-</div>
-
-    <div class="container tree">
-      <q-card>
-        <q-tabs
-            v-model="tab"
-            dense
-            class="text-grey"
-            active-color="primary"
-            indicator-color="primary"
-            align="justify"
-            narrow-indicator
-
-        >
-          <q-tab name="login" label="Log in"/>
-          <q-tab name="sign up" label="Sign up"/>
-        </q-tabs>
-
-        <q-separator/>
-
-        <q-tab-panels v-model="tab" animated>
-          <q-tab-panel name="login">
-            <div class="text-h6">Log in</div>
-            <Login/>
-          </q-tab-panel>
-
-          <q-tab-panel name="sign up">
-            <div class="text-h6">Sign up</div>
-            <Register/>
-          </q-tab-panel>
-        </q-tab-panels>
-      </q-card>
+      </div>
     </div>
   </div>
 </template>
@@ -89,34 +58,33 @@
 <script>
 // import carousel from "../components/carousel";
 import firebaseInstance from "@/middleware/firebase";
-import Login from "../views/Login"
-import Register from "@/views/Register";
-import {mapState, mapActions, mapMutations} from 'vuex';
+import {mapActions, mapMutations} from 'vuex';
+import Auth from "@/views/Auth";
 
 export default {
   name: 'Home',
   props: ['item'],
   components: {
-    Register,
-    Login
+    Auth
   },
   data() {
     return {
-      tab: 'login'
+      isClicked: false,
     }
   },
   methods: {
     ...mapActions('recipes', ['googleRegister']),
     ...mapMutations('recipes', ['setEditedRecipe']),
+    ...mapMutations('users', ['openDialog']),
 
-    logout() {
-      firebaseInstance.firebase.auth().signOut().then(() => {
-        this.$router.push('/')
-        // Sign-out successful.
-      }).catch((error) => {
-        // An error happened.
-      });
-    },
+    // logout() {
+    //   firebaseInstance.firebase.auth().signOut().then(() => {
+    //     this.$router.push('/')
+    //     // Sign-out successful.
+    //   }).catch((error) => {
+    //     // An error happened.
+    //   });
+    // },
   }
 }
 </script>
@@ -134,13 +102,15 @@ export default {
   /*align-items: center;*/
   /*background-image: url("../assets/background2.jpg");*/
 }
-.sub-container{
+
+.sub-container {
   display: flex;
   flex-direction: column;
   /*justify-content: center;*/
   align-items: center;
 }
-.container{
+
+.container {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -151,7 +121,8 @@ export default {
   /*height :33vh;*/
   /*margin: 60px;*/
 }
-.tree{
+
+.tree {
   /*max-width: 450px;*/
   /*display: block;*/
 
@@ -179,6 +150,7 @@ export default {
   height: 33.3%;
 
 }
+
 .box-1 {
   flex: 1;
 }
@@ -205,9 +177,9 @@ export default {
 }
 
 .head {
-  /*align-items: center;*/
-  /*align-content: center;*/
-
+  display: flex;
+  flex-direction: column;
+  flex: auto;
 }
 
 

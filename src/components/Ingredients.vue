@@ -30,6 +30,7 @@
       </q-item>
 
       <q-btn @click="search()" push color="deep-orange-4" round icon="search"/>
+      <q-btn flat label="ביטול" @click="closeDialog"/>
     </q-card>
   </q-dialog>
 </template>
@@ -105,9 +106,8 @@ export default {
     }
   },
   computed: mapState('recipes', ['isClicked']),
-
   methods: {
-    ...mapMutations('recipes', ['openDialog']),
+    ...mapMutations('recipes', ['openDialog', 'closeDialog']),
     ...mapActions('recipes', ['setSelectedByIngredients']),
     ...mapGetters('recipes', ['filterByIngredients']),
 

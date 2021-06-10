@@ -84,7 +84,7 @@
           </q-item>
 
           <div class="row">
-            <CardViewer v-for="card in userRecipes" :card="card" :key="card.id" :recipeId="card.id" :userRecipes="userRecipes"
+            <CardViewer v-model="model" v-for="card in userRecipes" :card="card" :key="card.id" :recipeId="card.id"
                         :class="{profileMode}"/>
           </div>
           <!--        <q-item>-->
@@ -110,11 +110,11 @@ import CardViewer from "../components/CardViewer"
 export default {
   name: "Profile",
   components: {CardViewer},
-  // props: ['recipeId'],
   data() {
     return {
       profileMode: 'true',
       onlyFavorites: [],
+      model: 'true',
     }
   },
   computed: {
@@ -127,40 +127,17 @@ export default {
     ...mapActions('users', ['getUserById', 'getFavorites', 'getUserRecipes']),
     ...mapActions('recipes', ['getRecipes']),
 
-    // logout() {/
-    //   this.logoutAction(this.userId).then(()=>{
-    //     localStorage.setItem('uid', JSON.stringify(false))
-    //     localStorage.setItem('user', JSON.stringify(false))
-    //     this.$router.push('/Login')
-    //   })
-    // }
+    logout() {
+      firebaseInstance.firebase.auth().signOut().then(() => {
+        this.$router.push('/home')
+      }).catch((error) => {
+      });
+    },
   },
-
-  // watch: {
-  //   favoriteRecipe() {
-  //     this.getUserRecipes()
-  //         .then(() => {
-  //           console.log(this.recipes)
-  //         })
-  //   },
-  // },
 
   async created() {
     await this.getUserById(window.user.uid)
     await this.getUserRecipes()
-        .then(() => {
-          console.log(this.userRecipes)
-        })
-    // await this.getFavorites()
-    // .then(() => {
-    //   console.log(this.favorites)
-    // })
-
-    await this.getRecipes()
-        .then(() => {
-          console.log(this.recipes)
-        })
-
   }
 }
 </script>

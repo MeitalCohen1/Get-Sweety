@@ -45,6 +45,10 @@ export default {// רק למיוטיישן מותר לבצע שינוי לסטי
         state.isClicked = !state.isClicked;
     }),
 
+    closeDialog: ((state) => {
+        state.isClicked = !state.isClicked;
+    }),
+
     setByIngredients: ((state, ingredientsHm) => {
         state.ingredientsHm = ingredientsHm
     }),
