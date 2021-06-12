@@ -76,7 +76,7 @@ export default {
 
     logout() {
       firebaseInstance.firebase.auth().signOut().then(() => {
-        this.$router.push('/home')
+        this.$router.push('/')
       }).catch((error) => {
       });
     },

@@ -1,16 +1,19 @@
 <template>
   <div class="login" dir="rtl">
-    <q-input color="orange" v-model="email" label="אימייל" dir="ltr">
-      <template v-slot:prepend>
-        <q-icon name="email"/>
-      </template>
-    </q-input>
+    <div class="btnsLogin">
+      <q-input color="orange" v-model="email" label="אימייל" dir="ltr">
+        <template v-slot:prepend>
+          <q-icon name="email"/>
+        </template>
+      </q-input>
 
-    <q-input color="orange" type="password" v-model="password" label="סיסמא" dir="ltr">
-      <template v-slot:prepend>
-        <q-icon name="lock"/>
-      </template>
-    </q-input>
+      <q-input color="orange" type="password" v-model="password" label="סיסמא" dir="ltr">
+        <template v-slot:prepend>
+          <q-icon name="lock"/>
+        </template>
+      </q-input>
+    </div>
+
     <br>
     <q-btn color="deep-orange-4" @click="loginWithEmailPassword()">התחבר</q-btn>
     <br>
@@ -100,6 +103,11 @@ export default {
 </script>
 
 <style scoped>
+
+.btnsLogin {
+  margin-bottom: 40px;
+}
+
 .login {
   display: flex;
   flex-direction: column;
@@ -108,19 +116,11 @@ export default {
   align-items: center;
   font-family: Arial;
   width: 300px;
-  height:500px;
-  margin-right: auto;
-  margin-left: auto;
+  height:450px;
 }
 
 .loginBtn {
   display: flex;
   flex-direction: column;
-  /*justify-content: space-between;*/
-
 }
-
 </style>
-
-
-<!--makegood@test.com-->

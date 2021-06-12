@@ -8,25 +8,23 @@ import firebaseInstance from '../middleware/firebase'
 Vue.use(VueRouter)
 
 const routes = [
+    // {
+    //     path: '/home',
+    //     name: 'Home',
+    //     component: Home,
+    //     meta: {authNotRequired: true}
+    // },
     {
-        path: '/home',
+        path: '/',
         name: 'Home',
         component: Home,
         meta: {authNotRequired: true}
-    },
-    {
-        path: '/',
-        name: 'Login',
-        component: Login,
-        meta: {authNotRequired: true}
-
     },
     {
         path: '/register',
         name: 'Register',
         component: () => import(/* webpackChunkName: "about" */ '../components/Register.vue'),
         meta: {authNotRequired: true}
-
     },
     {
         path: '/one-card',

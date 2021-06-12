@@ -15,7 +15,7 @@
     <q-input color="orange" type="password" v-model="password" label="סיסמא" dir="ltr">
       <template v-slot:prepend>
         <q-icon name="lock"/>
-      </template>
+      </template  >
     </q-input>
 
     <q-input color="orange" type="password" v-model="confirmPassword" label="אימות סיסמא" dir="ltr">
@@ -25,16 +25,16 @@
     </q-input>
 
 
-    <div class="checkBox q-gutter-sm">
-      <p> העדפה למתכונים :</p>
-      <q-checkbox dense v-model="localUser.sweet" label="מתוק" color="deep-orange-4"/>
-      <q-checkbox dense v-model="localUser.salt" label="מלוח" color="deep-orange-4"/>
-    </div>
+<!--    <div class="checkBox q-gutter-sm">-->
+<!--      <p style="color: darkgray"> העדפה למתכונים :</p>-->
+<!--      <q-checkbox dense v-model="localUser.sweet" label="מתוק" color="deep-orange-4"/>-->
+<!--      <q-checkbox dense v-model="localUser.salt" label="מלוח" color="deep-orange-4"/>-->
+<!--    </div>-->
 
     <!--    <q-input v-model="email" label="Email" :dense="dense"/>-->
     <!--    <q-input v-model="password" label="Password" :dense="dense"/>-->
 
-    <q-btn @click="signUp()" color="deep-orange-4">הירשם</q-btn>
+    <q-btn @click="signUp()" color="deep-orange-4" style="margin-top: 40px">הירשם</q-btn>
 
     <br>
     <!--    <p> או </p>-->
@@ -100,9 +100,7 @@ export default {
   align-items: center;
   font-family: Arial;
   width: 300px;
-  height: 500px;
-  margin-right: auto;
-  margin-left: auto;
+  height: 450px;
 }
 
 .checkBox {

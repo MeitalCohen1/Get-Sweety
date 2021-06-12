@@ -1,10 +1,10 @@
 <template>
-  <div class="container tree">
+  <div class="container">
     <q-dialog v-model="isClicked">
     <q-card class="tabs" >
       <q-tabs
           v-model="tab"
-          class="text-grey"
+          class="text-black"
           active-color="deep-orange-4"
           indicator-color="deep-orange-4"
           align="justify"
@@ -18,13 +18,13 @@
 
       <q-tab-panels class="tabs" v-model="tab" animated>
         <q-tab-panel name="login">
-          <div class="login text-h6">התחבר</div>
+          <div class="login text-h6" >התחבר</div>
           <Login/>
           <q-btn flat label="ביטול" @click="closeDialog"/>
         </q-tab-panel>
 
         <q-tab-panel name="sign up">
-          <div class="signUp text-h6">הירשם</div>
+          <div class="signUp text-h6" >הירשם</div>
           <Register/>
           <q-btn flat label="ביטול" @click="closeDialog"/>
         </q-tab-panel>
@@ -59,12 +59,16 @@ export default {
 
 <style scoped>
 
+.tabs {
+  background-image: linear-gradient(rgba(200, 180, 170, 0.8),rgba(200, 180, 170, 0.8)) ,url("../assets/Auth.jpg");
+  background-size: 450px;
+  position: relative;
+}
 .login {
   display: flex;
   flex-direction: column;
   justify-items: center;
   align-items: center;
-  margin: 20px;
 }
 
 .signUp {
@@ -72,7 +76,6 @@ export default {
   flex-direction: column;
   justify-items: center;
   align-items: center;
-  margin: 20px;
 }
 
 </style>
