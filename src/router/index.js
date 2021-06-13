@@ -8,16 +8,16 @@ import firebaseInstance from '../middleware/firebase'
 Vue.use(VueRouter)
 
 const routes = [
-    // {
-    //     path: '/home',
-    //     name: 'Home',
-    //     component: Home,
-    //     meta: {authNotRequired: true}
-    // },
     {
-        path: '/',
+        path: '/home',
         name: 'Home',
         component: Home,
+        meta: {authNotRequired: true}
+    },
+    {
+        path: '/',
+        name: 'StartPage',
+        component: () => import(/* webpackChunkName: "about" */ '../views/StartPage'),
         meta: {authNotRequired: true}
     },
     {
