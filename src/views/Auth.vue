@@ -60,8 +60,11 @@ export default {
 <style scoped>
 
 .tabs {
-  background-image: linear-gradient(rgba(200, 180, 170, 0.8), rgba(200, 180, 170, 0.8)), url("../assets/Auth.jpg");
-  background-size: 450px;
+  background-image: linear-gradient(rgba(200, 170, 150, 0.2), rgba(120, 130, 130, 0.5)),url("../assets/piccc.jpg");
+
+/*  background-color: #1D1D1D;*/
+  background-size: 1150px;
+  background-repeat: no-repeat;
   position: relative;
 }
 

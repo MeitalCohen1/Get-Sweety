@@ -10,9 +10,9 @@
       <!--    </div>-->
 
       <!--    <div class="text" style="text-align: center">-->
-      <p dir="rtl" style="font-family:Arial; color: gray; margin-bottom: 15px; text-align: center">אנחנו כאן כדי להציע לכם מתכונים מתוקים
-        וטעימים בהתאם למרכיבים שיש ברשותכם במטבח
-        :)</p>
+      <p dir="rtl" style="font-family:Arial; font-size: small; color: gray; margin-bottom: 15px; text-align: center">
+        מציעים לך מתכונים מתוקים בהתאם למרכיבים שיש ברשותך במטבח :)
+      </p>
     </div>
 
     <div class="img">
@@ -48,7 +48,7 @@ export default {
 
 .headLine {
   color: #fd7862;
-  margin-top: -50px;
+  margin-top: -30px;
   font-family: 'Cookie', cursive;
   /*padding: 15px;*/
   /*position: ;*/
