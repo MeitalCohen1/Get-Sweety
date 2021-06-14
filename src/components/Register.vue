@@ -1,40 +1,43 @@
 <template>
   <div class="register" dir="rtl">
-    <q-input color="orange" v-model="localUser.fullName" label="שם מלא" dir="rtl">
-      <template v-slot:prepend>
-        <q-icon name="face"/>
-      </template>
-    </q-input>
+    <div style="margin-bottom: 50px">
+      <q-input color="deep-orange-4" v-model="localUser.fullName" label="שם מלא" dir="rtl">
+        <template v-slot:prepend>
+          <q-icon name="face"/>
+        </template>
+      </q-input>
 
-    <q-input color="orange" v-model="localUser.email" label="אימייל" dir="ltr">
-      <template v-slot:prepend>
-        <q-icon name="email"/>
-      </template>
-    </q-input>
+      <q-input color="deep-orange-4" v-model="localUser.email" label="אימייל" dir="ltr">
+        <template v-slot:prepend>
+          <q-icon name="email"/>
+        </template>
+      </q-input>
 
-    <q-input color="orange" type="password" v-model="password" label="סיסמא" dir="ltr">
-      <template v-slot:prepend>
-        <q-icon name="lock"/>
-      </template  >
-    </q-input>
+      <q-input color="deep-orange-4" type="password" v-model="password" label="סיסמא" dir="ltr">
+        <template v-slot:prepend>
+          <q-icon name="lock"/>
+        </template>
+      </q-input>
 
-    <q-input color="orange" type="password" v-model="confirmPassword" label="אימות סיסמא" dir="ltr">
-      <template v-slot:prepend>
-        <q-icon name="lock"/>
-      </template>
-    </q-input>
+<!--      <q-input color="deep-orange-4" type="password" v-model="confirmPassword" placeholder="Confirm Passwrd" @click="validatePass()"-->
+<!--               label="אימות סיסמא" dir="ltr">-->
+<!--        <template v-slot:prepend>-->
+<!--          <q-icon name="lock"/>-->
+<!--        </template>-->
+<!--      </q-input>-->
+    </div>
 
 
-<!--    <div class="checkBox q-gutter-sm">-->
-<!--      <p style="color: darkgray"> העדפה למתכונים :</p>-->
-<!--      <q-checkbox dense v-model="localUser.sweet" label="מתוק" color="deep-orange-4"/>-->
-<!--      <q-checkbox dense v-model="localUser.salt" label="מלוח" color="deep-orange-4"/>-->
-<!--    </div>-->
+<!--        <div class="checkBox q-gutter-sm">-->
+<!--          <p style="color: darkgray"> העדפה למתכונים :</p>-->
+<!--          <q-checkbox dense v-model="localUser.sweet" label="מתוק" color="deep-orange-4"/>-->
+<!--          <q-checkbox dense v-model="localUser.salt" label="מלוח" color="deep-orange-4"/>-->
+<!--        </div>-->
 
     <!--    <q-input v-model="email" label="Email" :dense="dense"/>-->
     <!--    <q-input v-model="password" label="Password" :dense="dense"/>-->
 
-    <q-btn @click="signUp()" color="deep-orange-4" style="margin-top: 40px">הירשם</q-btn>
+    <q-btn @click="register()" color="deep-orange-4" style="margin-top: 40px">הירשם</q-btn>
 
     <br>
     <!--    <p> או </p>-->
@@ -70,7 +73,10 @@ export default {
   },
   methods: {
     ...mapActions('users', ['insertLogin']),
-    signUp() {
+    // validatePass() {
+    //   console.log(this.password.value === this.confirmPassword.value)
+    // },
+    register() {
       firebaseInstance.firebase.auth().createUserWithEmailAndPassword(this.localUser.email, this.password)
           .then((userCredential) => {
             // Signed in
@@ -78,7 +84,7 @@ export default {
             window.user = user
             const newUser = user.providerData[0]
             firebaseDatabase.setUser({user: newUser})
-            // this.$router.push('/home')
+            this.$router.push('/home')
             console.log(user)
           })
           .catch((error) => {
@@ -99,8 +105,8 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   font-family: Arial;
-  width: 300px;
-  height: 450px;
+  /*width: 300px;*/
+  height: 700px;
 }
 
 .checkBox {

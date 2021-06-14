@@ -28,11 +28,11 @@ export default {
         state.userRecipes = userRecipes
     }),
 
-    openDialog: ((state) => {
-        state.isClicked = !state.isClicked;
-    }),
-
-    closeDialog: ((state) => {
-        state.isClicked = !state.isClicked;
-    }),
+    // openDialog: ((state) => {
+    //     state.isClicked = !state.isClicked;
+    // }),
+    //
+    // closeDialog: ((state) => {
+    //     state.isClicked = !state.isClicked;
+    // }),
 }

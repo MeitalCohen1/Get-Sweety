@@ -10,7 +10,7 @@
       <!--    </div>-->
 
       <!--    <div class="text" style="text-align: center">-->
-      <p dir="rtl" style="color: gray; margin-bottom: 15px; text-align: center">אנחנו כאן כדי להציע לכם מתכונים מתוקים
+      <p dir="rtl" style="font-family:Arial; color: gray; margin-bottom: 15px; text-align: center">אנחנו כאן כדי להציע לכם מתכונים מתוקים
         וטעימים בהתאם למרכיבים שיש ברשותכם במטבח
         :)</p>
     </div>
@@ -21,16 +21,17 @@
     </div>
 
     <div class="btns column" style="width: 200px">
-      <q-btn style="margin-bottom: 10px" rounded color="deep-orange-4" label="הירשם"/>
-      <q-btn style="margin-bottom: 10px" rounded color="deep-orange-4" label="התחבר"/>
+      <q-btn style="margin-bottom: 10px" rounded color="deep-orange-4" label="הירשם" @click="$router.push('/auth')"/>
+      <q-btn style="margin-bottom: 10px" rounded color="deep-orange-4" label="התחבר" @click="$router.push('/auth')"/>
     </div>
 
   </div>
 </template>
 
 <script>
+
 export default {
-  name: "StartPage"
+  name: "StartPage",
 }
 </script>
 
@@ -51,14 +52,6 @@ export default {
   font-family: 'Cookie', cursive;
   /*padding: 15px;*/
   /*position: ;*/
-}
-
-.text {
-  margin-bottom: -20px;
-}
-
-.img {
-  /*margin-bottom: 40px;*/
 }
 
 .btns {

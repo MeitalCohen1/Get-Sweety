@@ -1,13 +1,13 @@
 <template>
   <div class="login" dir="rtl">
-    <div class="btnsLogin">
-      <q-input color="orange" v-model="email" label="אימייל" dir="ltr">
+    <div class="inputLogin">
+      <q-input color="deep-orange-4" v-model="email" label="אימייל" dir="ltr">
         <template v-slot:prepend>
           <q-icon name="email"/>
         </template>
       </q-input>
 
-      <q-input color="orange" type="password" v-model="password" label="סיסמא" dir="ltr">
+      <q-input color="deep-orange-4" type="password" v-model="password" label="סיסמא" dir="ltr">
         <template v-slot:prepend>
           <q-icon name="lock"/>
         </template>
@@ -104,8 +104,9 @@ export default {
 
 <style scoped>
 
-.btnsLogin {
+.inputLogin {
   margin-bottom: 40px;
+
 }
 
 .login {
@@ -115,8 +116,8 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   font-family: Arial;
-  width: 300px;
-  height:450px;
+  /*width: 300px;*/
+  height: 700px;
 }
 
 .loginBtn {
