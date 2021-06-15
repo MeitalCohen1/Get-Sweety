@@ -1,38 +1,45 @@
 <template>
-  <q-dialog v-model="isClicked">
-    <q-card style="width: 300px" class=" card q-px-sm q-pb-md">
-      <q-card-section>
-        <div dir="rtl" class="text-h6 icon">
-          <q-item-section avatar>
-            <q-icon name="checklist_rtl"/>
+  <div class="main">
+    <q-dialog v-model="isClicked">
+      <q-card style="width: 300px" class=" card q-px-sm q-pb-md">
+        <q-card-section>
+          <div dir="rtl" class="text-h6 icon">
+            <q-item-section avatar>
+              <q-icon name="checklist_rtl"/>
+            </q-item-section>
+            מרכיבים
+          </div>
+        </q-card-section>
+
+        <q-item-label dir="rtl" header>בחר/י את המרכיבים שנמצאים ברשותך:</q-item-label>
+        <q-item dir="rtl" dense
+                v-for="opt in options" :key="opt.label" @click="opt.check = !opt.check">
+          <q-item-section>
+            <q-checkbox
+                v-model="opt.check"
+                :options="options"
+                color="deep-orange-4"
+                type="checkbox"
+                class="checkbox"
+            />
           </q-item-section>
-          מרכיבים
+          <q-item-section>
+            <q-item-label>
+              {{ opt.label }}
+            </q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <div class="text-center" style="margin: 10px">
+          <q-btn @click="search()" unelevated rounded push color="deep-orange-4" icon="search" label="חפש"/>
         </div>
-      </q-card-section>
 
-      <q-item-label dir="rtl" header>בחר/י את המרכיבים שנמצאים ברשותך:</q-item-label>
-      <q-item dir="rtl" dense
-              v-for="opt in options" :key="opt.label" @click="opt.check = !opt.check">
-        <q-item-section>
-          <q-checkbox
-              v-model="opt.check"
-              :options="options"
-              color="deep-orange-4"
-              type="checkbox"
-          />
-        </q-item-section>
-        <q-item-section>
-          <q-item-label>
-            {{ opt.label }}
-          </q-item-label>
-        </q-item-section>
-
-      </q-item>
-
-      <q-btn @click="search()" push color="deep-orange-4" round icon="search"/>
-      <q-btn flat label="ביטול" @click="closeDialog"/>
-    </q-card>
-  </q-dialog>
+        <div>
+          <q-btn flat label="ביטול" @click="closeDialog"/>
+        </div>
+      </q-card>
+    </q-dialog>
+  </div>
 </template>
 
 <script>
@@ -122,9 +129,13 @@ export default {
 </script>
 
 <style scoped>
-.ingredients {
-  display: flex;
-  flex-direction: column;
+
+.main {
+  font-family: Arial, sans-serif;
+}
+
+.checkbox {
+  margin-left: 10px;
 }
 
 .icon {
@@ -133,6 +144,7 @@ export default {
 }
 
 .card {
-  font-family: 'Bellefair', serif;
+  display: flex;
+  flex-direction: column;
 }
 </style>

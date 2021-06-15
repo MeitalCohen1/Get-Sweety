@@ -1,31 +1,20 @@
 <template>
   <div class="main">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cookie&family=Dancing+Script:wght@500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cookie&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 
     <q-layout view="lHh lpr lFf" container style="height: 812px" class="shadow-2">
       <q-footer reveal elevated>
         <q-toolbar class="footer bg-deep-orange-3">
-          <q-btn dense flat active-color="white" >
-            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="face" />
-            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="search" />
+          <q-tabs no-caps dense flat active-color="grey" class="text-white" v-model="tab">
+            <q-tab name="face" style="font-size:17px" dense flat class="q-mr-lg" @click=moveToProfile icon="face" />
+            <q-tab name="search" style="font-size:17px" dense flat class="q-mr-lg" icon="search" />
 <!--            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="favorite" />-->
-            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="home" />
-            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="logout" />
-          </q-btn>
-<!--          <q-toolbar-title>Footer</q-toolbar-title>-->
+            <q-tab name="home" style="font-size:17px" dense flat class="q-mr-lg" icon="home" />
+            <q-tab name="logout" search style="font-size:17px" dense flat class="q-mr-lg" @click="logout()" icon="logout" />
+          </q-tabs>
         </q-toolbar>
       </q-footer>
-      <!--    <div class="q-pa-md q-gutter-y-sm">-->
-      <!--      <q-toolbar class="bg-deep-orange-4 text-white shadow-4">-->
-      <!--        <q-btn flat round dense icon="menu"/>-->
-      <!--        <q-space/>-->
-      <!--        <q-btn flat dense label="אזור אישי" class="q-mr-sm" @click=moveToProfile() />-->
-      <!--        <q-btn @click="logout()" icon="logout"> Log out</q-btn>-->
-      <!--      </q-toolbar>-->
-      <!--    </div>-->
 
       <q-page-container>
         <q-page class="q-pa-md">
@@ -40,6 +29,7 @@
             <q-btn unelevated rounded color="deep-orange-4" label="פרווה" @click="filterType('פרווה')"/>
             <q-btn unelevated rounded color="deep-orange-4" label="חלבי" @click="filterType('חלבי')"/>
           </div>
+
           <Ingredients @searchIsClicked="getResult"/>
 
           <div class="row wrap cards">
@@ -74,6 +64,7 @@ export default {
     filtered: [],
     tableName: 'tableRecipes',
     model: 'two',
+    tab: 'home',
   }),
   computed: {
     ...mapState('recipes', ['recipes', 'selectedRecipe']),
@@ -122,7 +113,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family:Arial;
+  font-family:Arial, sans-serif;
   background-color: rgba(190, 140, 100, 0.2);
 }
 

@@ -75,7 +75,7 @@ export default {
         return database.loginWithEmailPassword()
     },
 
-    setSelectedByIngredients: ({state, commit}, options) => { // רכיבים שסומנו
+    setSelectedByIngredients: ({state, commit}, options) => {
         const ingredientsList = []
         for (const opt of options) {
             if (opt.check === true) {
