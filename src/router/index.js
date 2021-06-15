@@ -15,6 +15,12 @@ const routes = [
         meta: {authNotRequired: true}
     },
     {
+        path: '/test',
+        name: 'Test',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Test.vue'),
+        meta: {authNotRequired: true}
+    },
+    {
         path: '/auth',
         name: 'Auth',
         component: () => import(/* webpackChunkName: "about" */ '../views/Auth.vue'),

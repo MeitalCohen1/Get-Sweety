@@ -6,7 +6,7 @@
           <q-btn v-model="model" flat round size="15px" icon="favorite" color="red" style="position: absolute"
                  @click="removeFavoriteFromUser(card.id)" v-if="model"/>
 
-          <q-btn v-model="model" flat round size="15px" icon="favorite" color="deep-orange-4" style="position: absolute"
+          <q-btn v-model="model" flat round size="15px" icon="favorite" style="position: absolute; color:#f0e6df"
                  v-if="!model" @click="addToUser(card.id)"/>
 
           <img class="img" v-if="!card.image" src="../assets/picCard.jpg" @click="setSelectedRecipe(card.id)">

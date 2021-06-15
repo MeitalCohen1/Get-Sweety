@@ -1,32 +1,55 @@
 <template>
   <div class="main">
-    <div class="q-pa-md q-gutter-y-sm">
-      <q-toolbar class="bg-deep-orange-4 text-white shadow-4">
-        <q-btn flat round dense icon="menu"/>
-        <q-space/>
-        <q-btn flat dense label="אזור אישי" class="q-mr-sm" @click=moveToProfile() />
-        <q-btn @click="logout()" icon="logout"> Log out</q-btn>
-      </q-toolbar>
-    </div>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cookie&family=Dancing+Script:wght@500&display=swap"
+        rel="stylesheet">
 
-    <div class="head text-h4 text-deep-orange-12 text-deep-orange-10 text-right headLine " dir="rtl">
-      שלום,
-      <br>
-      מה תרצה לקינוח?
-    </div>
+    <q-layout view="lHh lpr lFf" container style="height: 812px" class="shadow-2">
+      <q-footer reveal elevated>
+        <q-toolbar class="footer bg-deep-orange-3">
+          <q-btn dense flat active-color="white" >
+            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="face" />
+            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="search" />
+<!--            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="favorite" />-->
+            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="home" />
+            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="logout" />
+          </q-btn>
+<!--          <q-toolbar-title>Footer</q-toolbar-title>-->
+        </q-toolbar>
+      </q-footer>
+      <!--    <div class="q-pa-md q-gutter-y-sm">-->
+      <!--      <q-toolbar class="bg-deep-orange-4 text-white shadow-4">-->
+      <!--        <q-btn flat round dense icon="menu"/>-->
+      <!--        <q-space/>-->
+      <!--        <q-btn flat dense label="אזור אישי" class="q-mr-sm" @click=moveToProfile() />-->
+      <!--        <q-btn @click="logout()" icon="logout"> Log out</q-btn>-->
+      <!--      </q-toolbar>-->
+      <!--    </div>-->
 
+      <q-page-container>
+        <q-page class="q-pa-md">
+          <div class="headLine text-h5 text-deep-orange-4 text-left" dir="ltr">
+            Hi,
+            <br>
+            Are You Hungry?
+          </div>
 
-    <div class="Button">
-      <q-btn unelevated rounded color="deep-orange-4" label="מרכיבים" @click="openDialog()"/>
-      <q-btn unelevated rounded color="deep-orange-4" label="פרווה" @click="filterType('פרווה')"/>
-      <q-btn unelevated rounded color="deep-orange-4" label="חלבי" @click="filterType('חלבי')"/>
-    </div>
-    <Ingredients @searchIsClicked="getResult"/>
+          <div class="Button">
+            <q-btn unelevated rounded color="deep-orange-4" label="מרכיבים" @click="openDialog()"/>
+            <q-btn unelevated rounded color="deep-orange-4" label="פרווה" @click="filterType('פרווה')"/>
+            <q-btn unelevated rounded color="deep-orange-4" label="חלבי" @click="filterType('חלבי')"/>
+          </div>
+          <Ingredients @searchIsClicked="getResult"/>
 
-    <div class="row wrap cards">
-      <CardViewer v-for="card in ((filtered.length && filtered ) || recipes)" :card="card" :recipeId="card.id" :key="card.id"/>
-      <OneCard v-if="selectedRecipe"></OneCard>
-    </div>
+          <div class="row wrap cards">
+            <CardViewer v-for="card in ((filtered.length && filtered ) || recipes)" :card="card" :recipeId="card.id"
+                        :key="card.id"/>
+            <OneCard v-if="selectedRecipe"></OneCard>
+          </div>
+        </q-page>
+      </q-page-container>
+    </q-layout>
   </div>
 </template>
 
@@ -99,23 +122,27 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family:Arial;
+  background-color: rgba(190, 140, 100, 0.2);
 }
 
-.head {
-  font-family: 'Bellefair', serif;
-  width: 1700px;
+.headLine {
+  font-family: 'Cookie', cursive;
+  font-size: 40px;
+  margin: 30px;
+}
+
+.footer {
+  justify-content: center;
+  align-items: center;
 }
 
 .Button {
   display: flex;
-  max-width: 400px;
   flex-direction: row;
-  justify-content: space-between;
-  width: 300px;
+  justify-content: space-around;
+  padding: 10px;
   flex-wrap: wrap;
-  align-items: center;
-  font-family: 'Amatic SC', cursive;
-  margin: 25px;
 }
 
 .cards {

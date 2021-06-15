@@ -63,7 +63,7 @@
     </div>
 
     <div dir="rtl" class="btn">
-      <q-btn style="width: 200px" unelevated rounded color="brown-5" label="בוא נתחיל!" />
+      <q-btn style="width: 200px" unelevated rounded color="brown-5" label="בואו נתחיל!" @click="$router.push('/recipes')" />
     </div>
   </div>
   <!--  </div>-->
