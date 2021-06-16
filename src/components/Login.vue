@@ -15,13 +15,13 @@
     </div>
 
     <br>
-    <q-btn color="deep-orange-4" @click="loginWithEmailPassword()">התחבר</q-btn>
+    <q-btn color="deep-orange-4" @click="loginWithEmailPasswordBtn()">התחבר</q-btn>
     <br>
     <p> או </p>
     <br>
     <div class="loginBtn">
       <q-btn style="margin-bottom: 20px" @click="facebookRegister()" rounded color="primary" label="FACEBOOK"/>
-      <q-btn style="text-align:center" @click="googleProvider()" outline rounded color="red" label="GOOGLE"/>
+      <q-btn style="text-align:center" @click="loginWithGoogleBtn()" outline rounded color="red" label="GOOGLE"/>
     </div>
   </div>
 </template>
@@ -41,56 +41,21 @@ export default {
     }
   },
   methods: {
-    ...mapActions('users', ['googleLogin', 'providerEmailPassword']),
-    ...mapMutations('users', ['setUser']),
+    ...mapActions('users', ['loginWithGoogle', 'loginWithEmailPassword']),
+    ...mapMutations('users', ['setLocalUser']),
 
-    googleProvider() {
-      const self = this
-      var provider = new firebaseInstance.firebase.auth.GoogleAuthProvider();
-      firebaseInstance.firebase.auth()
-          .signInWithPopup(provider)
-          .then((result) => {
-            /** @type {firebase.auth.OAuthCredential} */
-            var credential = result.credential;
+    loginWithGoogleBtn() {
+      this.loginWithGoogle()
+      this.$router.push('/home')
+  },
 
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            const newUser = user.providerData[0]
-            newUser.uid = user.uid;
-            window.user = result.user;
-            database.setUser({user: newUser}).then(() => {
-              self.setUser(newUser)
-              localStorage.setItem('user', JSON.stringify(newUser))
-            })
-          }).catch((error) => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-      });
-    },
-
-    loginWithEmailPassword() {
-      const self = this
-      firebaseInstance.firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-          .then((userCredential) => {
-            // Signed in
-            return userCredential.user;
-            // console.log(user)
-            // self.setUser(user)
-            // localStorage.setItem('user', JSON.stringify(user))
-          }).then(() => {
-        // this.$router.push('/home')
-      })
-          .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-          });
+    loginWithEmailPasswordBtn() {
+      let payload = {};
+      payload.email = this.email
+      payload.password = this.password
+      this.setLocalUser(payload)
+      this.loginWithEmailPassword()
+      this.$router.push('/home')
     }
 
   },
@@ -115,7 +80,7 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   /*width: 300px;*/
   height: 700px;
 }

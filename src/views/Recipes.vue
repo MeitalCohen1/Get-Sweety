@@ -36,6 +36,7 @@
             <CardViewer v-for="card in ((filtered.length && filtered ) || recipes)" :card="card" :recipeId="card.id"
                         :key="card.id"/>
             <OneCard v-if="selectedRecipe"></OneCard>
+
           </div>
         </q-page>
       </q-page-container>

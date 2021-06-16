@@ -15,13 +15,14 @@
 import firebaseInstance from "@/middleware/firebase";
 import database from 'firebase/database';
 export default {
-  data() {
-    return {
-    }
-  },
-  methods: {
-
-  }
+  name: 'app',
+  // data() {
+  //   return {
+  //   }
+  // },
+  // methods: {
+  //
+  // }
 }
 
 

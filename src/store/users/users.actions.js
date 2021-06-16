@@ -1,12 +1,45 @@
-import database from "../../middleware/firebase/database"; //  לאקשן מותר לצאת החוצה ולבצע פעולות מול הפייר בייס וכדומה
+import database from "../../middleware/firebase/database";
+// import firebaseInstance from '../../middleware/firebase';
+
 
 export default {
-    insertLogin: async ({state, commit}) => {
-        const user = {};
-        user.id = window.user.id
+    // insertLogin: async ({state, commit}) => {
+    //     const user = {};
+    //     user.id = window.user.providerData[0]
+    //
+    //     Object.assign(user, state.user)
+    //     user.id = await database.setUser({entity: `users'/${window.user.uid}/recipe`, user})
+    //     commit('setUser', user)
+    // },
 
+    // register: ({commit}, payload) => {
+    //     firebaseInstance.firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+    //         .then(data => {
+    //             database.
+    //         })
+    // },
+
+    register: async ({state, commit}) => {
+        const user = {};
+        // user.id = window.user.providerData[0]
         Object.assign(user, state.user)
-        user.id = await database.create({entity: `users'/${window.user.uid}/recipe`, user})
+        user.uid = await database.userRegister(user)
+        commit('setUser', user)
+        // const user = await database.userRegister(payload)
+        //    commit('setUserRegister', user)
+    },
+
+    loginWithGoogle: async ({state, commit}) => {
+        // const user = {};
+        const user = await database.userLoginWithGoogle()
+        // Object.assign(user, newUser)
+        commit('setUser', user)
+    },
+
+    loginWithEmailPassword: async ({state, commit}) => {
+        const user = {};
+        Object.assign(user, state.user)
+        user.uid = await database.userLogin(user)
         commit('setUser', user)
     },
 
@@ -23,13 +56,13 @@ export default {
     },
 
     getFavorites: async ({commit}) => {
-        const favorites = await database.readFavorites({entity: `users/${window.user.uid}/data/favorite`});
+        const favorites = await database.readFavorites({entity: `users/${window.user.uid}/favorite`});
         commit('setFavorites', favorites)
     },
 
     addRecipeToUser: async ({state, commit}, recipeId) => {
         const recipeDbKey = await database.addRecipeToUser(recipeId)
-        commit('setRecipeToUser', {[recipeId]:recipeDbKey});
+        commit('setRecipeToUser', {[recipeId]: recipeDbKey});
     },
 
     removeRecipeFromUser: async ({state, commit}, recipeObj) => {
@@ -38,7 +71,7 @@ export default {
     },
 
     getUserRecipes: async ({commit}) => {
-       const userRecipes = await database.readUserRecipes( `users/${window.user.uid}/data/favorite`);
+        const userRecipes = await database.readUserRecipes(`users/${window.user.uid}/favorite`);
         commit('setUserRecipes', userRecipes)
         return userRecipes;
     }

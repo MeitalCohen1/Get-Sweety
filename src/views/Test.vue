@@ -1,55 +1,48 @@
 <template>
-  <div class="q-pa-md">
-    <q-layout view="lHh lpr lFf" container style="height: 400px" class="shadow-2 rounded-borders">
-<!--      <q-header reveal elevated>-->
-<!--        <q-toolbar>-->
-<!--          <q-btn flat round dense icon="menu" class="q-mr-sm" />-->
-<!--          <q-avatar>-->
-<!--            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">-->
-<!--          </q-avatar>-->
+  <div class=" main q-pa-md">
 
-<!--          <q-toolbar-title>Quasar Framework</q-toolbar-title>-->
+    <!--  <div style="display: flex; justify-content: center; flex-direction: column; align-items: center">-->
+<!--    <h3 v-bind:class="{model}">-->
+<!--      TEST PAGE!!!!!!!!!!!!!!S-->
+<!--    </h3>-->
+    <!--  <q-btn v-model="model" icon="favorite" color="red" v-if="model" @click="model = !model"/>-->
+    <!--  <q-btn v-model="model" icon="favorite" color="orange" v-if="!model" @click="model = !model"/>-->
+    <!--  </div>-->
 
-<!--          <q-btn flat round dense icon="whatshot" />-->
-<!--        </q-toolbar>-->
-<!--      </q-header>-->
+    <!--  <div>-->
+    <!--    <Child :age="age"/>-->
+    <!--    <h3>I AM Futher AND I AM {{age}} YEARS OLD</h3>-->
+    <!--    <Brother @updateAge="setAge"/>-->
 
-      <q-footer reveal elevated>
-        <q-toolbar>
-          <q-toolbar-title>Footer</q-toolbar-title>
-        </q-toolbar>
-      </q-footer>
+    <div class="card-container">
+      <div class="upper-container">
+        <div class="image-container">
+          <img src="../assets/picHome2.jpg">
+        </div>
+      </div>
 
-      <q-page-container>
-        <q-page class="q-pa-md">
-          <p v-for="n in 15" :key="n">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit nihil praesentium molestias a adipisci, dolore vitae odit, quidem consequatur optio voluptates asperiores pariatur eos numquam rerum delectus commodi perferendis voluptate?
-          </p>
-        </q-page>
-      </q-page-container>
-    </q-layout>
+      <div class="lower-container">
+        <div>
+          <h3>meital</h3>
+          <h4>full stack</h4>
+        </div>
+        <div>
+          <p>i'm developer</p>
+        </div>
+        <div>
+          <a href="#" class="btn">View profile</a>
+        </div>
+      </div>
+
+    </div>
+
   </div>
-
-  <!--  <div style="display: flex; justify-content: center; flex-direction: column; align-items: center">-->
-<!--<h3 v-bind:class="{model}">-->
-<!--  TEST PAGE!!!!!!!!!!!!!!S-->
-<!--</h3>-->
-
-<!--  <q-btn v-model="model" icon="favorite" color="red" v-if="model" @click="model = !model"/>-->
-<!--  <q-btn v-model="model" icon="favorite" color="orange" v-if="!model" @click="model = !model"/>-->
-<!--  </div>-->
-
-<!--  <div>-->
-<!--    <Child :age="age"/>-->
-<!--    <h3>I AM Futher AND I AM {{age}} YEARS OLD</h3>-->
-<!--    <Brother @updateAge="setAge"/>-->
-<!--  </div>-->
-
 </template>
 
 <script>
 import Brother from "@/components/test/Brother";
 import Child from "@/components/test/Child";
+
 export default {
   name: "Test",
   components: {Brother, Child},
@@ -68,13 +61,81 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  transition: 0.5s ;
+/*h3 {*/
+/*  transition: 0.5s ;*/
+/*}*/
+
+/*.model {*/
+/*  transition: 0.5s;*/
+/*  font-size: 100px;*/
+/*}*/
+/*.main {*/
+/*  height: 150px;*/
+/*  width: 400px;*/
+/*  background: #e37946;*/
+/*}*/
+
+.card-container {
+
+}
+.upper-container {
+  height: 150px;
+  /*width: 400px;*/
+  background-color: rgba(190, 140, 100, 0.2);
 }
 
-.model {
-  transition: 0.5s;
-  font-size: 100px;
+.image-container {
+  background: white;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  padding: 5px;
+  transform: translate(130px, 100px);
 }
+
+.image-container img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.lower-container {
+  height: 280px;
+  background: #fff;
+  text-align: right;
+}
+.lower-container h3, h4{
+  box-sizing: border-box;
+  line-height: .6;
+  font-weight: lighter;
+}
+.lower-container  h4{
+  color: #027BE3;
+  opacity: .6;
+  font-weight: bold;
+}
+
+.lower-container p{
+  font-size: 16px;
+  color: gray;
+  margin-bottom: 30px;
+}
+.lower-container .btn{
+  padding: 12px 20px;
+  background: #21BA45;
+  border: none;
+  color: white;
+  border-radius: 30px;
+  font-size: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all .3s ease-in;
+}
+.lower-container .btn:hover {
+  background: transparent;
+  color: #C10015;
+  border: 2px solid #26A69A;
+}
+
 
 </style>

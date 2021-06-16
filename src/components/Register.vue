@@ -1,13 +1,13 @@
 <template>
   <div class="register" dir="rtl">
     <div style="margin-bottom: 50px">
-      <q-input color="deep-orange-4" v-model="localUser.fullName" label="שם מלא" dir="rtl">
+      <q-input color="deep-orange-4" v-model="displayName" label="שם מלא" dir="rtl">
         <template v-slot:prepend>
           <q-icon name="face"/>
         </template>
       </q-input>
 
-      <q-input color="deep-orange-4" v-model="localUser.email" label="אימייל" dir="ltr">
+      <q-input color="deep-orange-4" v-model="email" label="אימייל" dir="ltr">
         <template v-slot:prepend>
           <q-icon name="email"/>
         </template>
@@ -19,26 +19,21 @@
         </template>
       </q-input>
 
-<!--      <q-input color="deep-orange-4" type="password" v-model="confirmPassword" placeholder="Confirm Passwrd" @click="validatePass()"-->
-<!--               label="אימות סיסמא" dir="ltr">-->
-<!--        <template v-slot:prepend>-->
-<!--          <q-icon name="lock"/>-->
-<!--        </template>-->
-<!--      </q-input>-->
+      <q-input color="deep-orange-4" type="password" v-model="confirmPassword"
+               label="אימות סיסמא" dir="ltr" :rules="[comparePassword => comparePassword === password]">
+        <template v-slot:prepend>
+          <q-icon name="lock"/>
+        </template>
+      </q-input>
     </div>
 
+    <!--        <div class="checkBox q-gutter-sm">-->
+    <!--          <p style="color: darkgray"> העדפה למתכונים :</p>-->
+    <!--          <q-checkbox dense v-model="localUser.sweet" label="מתוק" color="deep-orange-4"/>-->
+    <!--          <q-checkbox dense v-model="localUser.salt" label="מלוח" color="deep-orange-4"/>-->
+    <!--        </div>-->
 
-<!--        <div class="checkBox q-gutter-sm">-->
-<!--          <p style="color: darkgray"> העדפה למתכונים :</p>-->
-<!--          <q-checkbox dense v-model="localUser.sweet" label="מתוק" color="deep-orange-4"/>-->
-<!--          <q-checkbox dense v-model="localUser.salt" label="מלוח" color="deep-orange-4"/>-->
-<!--        </div>-->
-
-    <!--    <q-input v-model="email" label="Email" :dense="dense"/>-->
-    <!--    <q-input v-model="password" label="Password" :dense="dense"/>-->
-
-    <q-btn @click="register()" color="deep-orange-4" style="margin-top: 40px">הירשם</q-btn>
-
+    <q-btn @click="clickToRegister()" color="deep-orange-4" style="margin-top: 40px">הירשם</q-btn>
     <br>
     <!--    <p> או </p>-->
     <!--    <br>-->
@@ -52,7 +47,7 @@
 <script>
 import firebaseInstance from '../middleware/firebase'
 import firebaseDatabase from '../middleware/firebase/database'
-import {mapActions, mapState} from 'vuex';
+import {mapActions, mapState, mapMutations} from 'vuex';
 
 
 export default {
@@ -60,38 +55,51 @@ export default {
   computed: mapState('users', ['user']),
   data() {
     return {
+      displayName: '',
+      email: '',
       password: '',
+      dense: false,
       confirmPassword: '',
-      localUser: {
-        email: '',
-        dense: false,
-        fullName: '',
-        sweet: false,
-        salt: false,
-      }
+      // sweet: false,
+      // salt: false,
     }
   },
   methods: {
-    ...mapActions('users', ['insertLogin']),
+    ...mapActions('users', ['register']),
+    ...mapMutations('users', ['setLocalUser']),
     // validatePass() {
     //   console.log(this.password.value === this.confirmPassword.value)
     // },
-    register() {
-      firebaseInstance.firebase.auth().createUserWithEmailAndPassword(this.localUser.email, this.password)
-          .then((userCredential) => {
-            // Signed in
-            var user = userCredential.user;
-            window.user = user
-            const newUser = user.providerData[0]
-            firebaseDatabase.setUser({user: newUser})
-            this.$router.push('/home')
-            console.log(user)
-          })
-          .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-          });
-    },
+
+    clickToRegister() {
+      let payload = {}
+      payload.displayName = this.displayName
+      payload.email = this.email
+      payload.password = this.password
+      this.setLocalUser(payload)
+      this.register()
+      this.$router.push('/home')
+    }
+
+
+
+    // register() {
+    //   firebaseInstance.firebase.auth().createUserWithEmailAndPassword(this.localUser.email, this.password)
+    //       .then((userCredential) => {
+    //         // Signed in
+    //         var user = userCredential.user;
+    //         window.user = user
+    //         // const newUser = user.providerData[0]
+    //         // firebaseDatabase.setUser({user: newUser})
+    //         // this.$router.push('/home')
+    //         // console.log(user)
+    //         this.register()
+    //       })
+    //       .catch((error) => {
+    //         const errorCode = error.code;
+    //         const errorMessage = error.message;
+    //       });
+    // },
   },
 }
 </script>
@@ -104,7 +112,7 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   /*width: 300px;*/
   height: 700px;
 }

@@ -285,4 +285,5 @@ export default {
   /*  background-image: image('/src/assets/background2.jpg');*/
 }
 
+
 </style>

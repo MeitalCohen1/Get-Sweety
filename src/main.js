@@ -3,10 +3,18 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './quasar'
+import firebaseInstance from './middleware/firebase'
 import VueToastify from "vue-toastify";
 
-Vue.use(VueToastify);
-import firebaseInstance from './middleware/firebase'
+Vue.use(VueToastify, {
+    position: "center-center",
+    withBackdrop: 'true',
+    backdrop: "rgba(0, 0, 0, 0.5)",
+    defaultTitle: 'false',
+    warningInfoDuration: 2500,
+    iconEnabled: 'false',
+    theme: 'light',
+});
 
 Vue.config.productionTip = false
 

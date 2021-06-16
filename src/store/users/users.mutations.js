@@ -1,6 +1,14 @@
 export default {
 
+    setLocalUser: ((state, user) => { //הסיסמא מופיעה גם בסטייט, האם תקין?
+        state.user = user
+    }),
+
     setUser: ((state, user) => {
+        state.user = user
+    }),
+
+    setUserRegister: ((state, user) => {
         state.user = user
     }),
 
