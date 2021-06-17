@@ -10,7 +10,7 @@
       <!--    </div>-->
 
       <!--    <div class="text" style="text-align: center">-->
-      <p dir="rtl" style="font-family:Arial; font-size: small; color: gray; margin-bottom: 15px; text-align: center">
+      <p dir="rtl" style="font-family:Arial,sans-serif; font-size: small; color: gray; margin-bottom: 15px; text-align: center">
         מציעים לך מתכונים מתוקים בהתאם למרכיבים שיש ברשותך במטבח :)
       </p>
     </div>

@@ -80,6 +80,7 @@ function userLoginWithGoogle() {
             newUser.displayName = user.displayName
             newUser.email = user.email
             newUser.uid = user.uid
+            newUser.photoURL = user.photoURL
             // const newUser = user.providerData[0]
             // newUser.uid = user.uid;
             firebaseInstance.firebase.database().ref('users').child(user.uid).set(newUser);
@@ -120,6 +121,12 @@ function userLogin(payload) {
           const errorCode = error.code;
           const errorMessage = error.message;
         });
+}
+
+function logOutUser() {
+    firebaseInstance.firebase.auth().signOut().then(() => {
+    }).catch((error) => {
+    });
 }
 
 function getById(options) {
@@ -234,6 +241,7 @@ export default {
     userRegister,
     userLoginWithGoogle,
     userLogin,
+    logOutUser,
     getById,
     addImage,
     getUserById,

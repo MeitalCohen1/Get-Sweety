@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="q-pa-md row items-start q-gutter-md">
+    <div class="q-pa-md">
       <q-card class="my-card">
         <div class="">
           <q-btn v-model="model" flat round size="15px" icon="favorite" color="red" style="position: absolute"
@@ -13,14 +13,14 @@
           <img class="img" v-else :src="card.image" @click="setSelectedRecipe(card.id)">
         </div>
 
-        <q-card-actions align="center">
-          <div class="q-pl-md">
+        <q-card-actions class="cardText">
+<!--          <div class="">-->
             <div class="name">
-              <div class="text-body2 text-orange-10 text-right">{{ card.name }}</div>
+              <div class="text-body2 text-orange-10 ">{{ card.name }}</div>
             </div>
 
-            <div class="typeDiff row">
-              <div class="rating row">
+            <div class="typeAndDiff">
+              <div class="rating">
                 <q-rating
                     v-model="card.difficulty"
                     size="1em"
@@ -28,10 +28,10 @@
                     disable
                 />
               </div>
-              <p style="color: #e37946">|</p>
-              <div class="text-orange-10 text-right">{{ card.type }}</div>
+              <p style="color: #e37946; margin: 5px">|</p>
+              <div class="type text-orange-10 text-right">{{ card.type }}</div>
             </div>
-          </div>
+<!--          </div>-->
           <!--          <q-btn flat round color="teal" icon="bookmark"/>-->
           <!--          <q-btn flat round color="primary" icon="share"/>-->
 
@@ -82,7 +82,7 @@ export default {
     }
   },
   created() {
-    this.model =  (this.favorites[this.recipeId]) ? true : false;
+    this.model =  !!(this.favorites[this.recipeId]); // If it exists you will become right
   }
 }
 </script>
@@ -92,12 +92,27 @@ export default {
   width: 100%;
   max-width: 300px;
   border-radius: 20px;
+}
 
+.cardText {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+.typeAndDiff {
+display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
 }
 
 .name {
-  display: flex;
-  flex-direction: row;
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  /*margin: 5px;*/
+  padding: 5px;
   /*align-items: center;*/
   position: center;
 }
@@ -117,11 +132,19 @@ export default {
 }
 
 .rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
   /*left: 30px;*/
-  justify-content: left;
-  /*margin: -60px;*/
+  /*justify-content: left;*/
+  margin: 5px;
   /*padding: -50px;*/
-  align-self: start;
+  /*align-self: start;*/
+}
+
+.type {
+  margin: 5px
 }
 
 </style>

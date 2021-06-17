@@ -14,27 +14,28 @@
     <!--    <h3>I AM Futher AND I AM {{age}} YEARS OLD</h3>-->
     <!--    <Brother @updateAge="setAge"/>-->
 
-    <div class="card-container">
-      <div class="upper-container">
-        <div class="image-container">
-          <img src="../assets/picHome2.jpg">
-        </div>
-      </div>
+<!--    <div class="card-container">-->
+<!--      <div class="upper-container">-->
+<!--        <div class="image-container">-->
+<!--          <img src="../assets/picHome2.jpg">-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <div class="lower-container">
-        <div>
-          <h3>meital</h3>
-          <h4>full stack</h4>
-        </div>
-        <div>
-          <p>i'm developer</p>
-        </div>
-        <div>
-          <a href="#" class="btn">View profile</a>
-        </div>
-      </div>
+<!--      <div class="lower-container">-->
+<!--        <div>-->
+<!--          <h3>meital</h3>-->
+<!--          <h4>full stack</h4>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <p>i'm developer</p>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <a href="#" class="btn">View profile</a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
 
-    </div>
+
 
   </div>
 </template>
@@ -45,6 +46,7 @@ import Child from "@/components/test/Child";
 
 export default {
   name: "Test",
+  props: ["card", 'recipeId', 'recipes'],
   components: {Brother, Child},
   data() {
     return {

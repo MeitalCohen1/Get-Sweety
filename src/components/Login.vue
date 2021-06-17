@@ -57,8 +57,8 @@ export default {
       this.loginWithEmailPassword()
       this.$router.push('/home')
     }
-
   },
+
   created() {
     if (window.user) {
       this.$router.push('/recipes')

@@ -2,6 +2,7 @@ export default {
     user: {
         fullName: '',
         email: '',
+        photoURL: '',
     },
     users: [],
     userId: '',

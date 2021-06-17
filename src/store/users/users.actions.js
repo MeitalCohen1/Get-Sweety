@@ -43,6 +43,10 @@ export default {
         commit('setUser', user)
     },
 
+    logout: () => {
+      database.logOutUser()
+    },
+
     getUser: async ({commit}) => {
         const user = await database.getUser({entity: 'user'});
         commit('setUser', user)

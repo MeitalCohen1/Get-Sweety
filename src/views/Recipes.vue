@@ -1,17 +1,20 @@
 <template>
   <div class="main">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cookie&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cookie&family=Dancing+Script:wght@500&display=swap"
+        rel="stylesheet">
 
     <q-layout view="lHh lpr lFf" container style="height: 812px" class="shadow-2">
       <q-footer reveal elevated>
         <q-toolbar class="footer bg-deep-orange-3">
           <q-tabs no-caps dense flat active-color="grey" class="text-white" v-model="tab">
-            <q-tab name="face" style="font-size:17px" dense flat class="q-mr-lg" @click=moveToProfile icon="face" />
-            <q-tab name="search" style="font-size:17px" dense flat class="q-mr-lg" icon="search" />
-<!--            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="favorite" />-->
-            <q-tab name="home" style="font-size:17px" dense flat class="q-mr-lg" icon="home" />
-            <q-tab name="logout" search style="font-size:17px" dense flat class="q-mr-lg" @click="logout()" icon="logout" />
+            <q-tab name="face" style="font-size:17px" dense flat class="q-mr-lg" @click=moveToProfile icon="face"/>
+            <q-tab name="search" style="font-size:17px" dense flat class="q-mr-lg" icon="search"/>
+            <!--            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="favorite" />-->
+            <q-tab name="home" style="font-size:17px" dense flat class="q-mr-lg" icon="home"/>
+            <q-tab name="logout" search style="font-size:17px" dense flat class="q-mr-lg" @click="logoutBtn()"
+                   icon="logout"/>
           </q-tabs>
         </q-toolbar>
       </q-footer>
@@ -34,7 +37,7 @@
 
           <div class="row wrap cards">
             <CardViewer v-for="card in ((filtered.length && filtered ) || recipes)" :card="card" :recipeId="card.id"
-                        :key="card.id"/>
+                        :key="card.id" :model="model"/>
             <OneCard v-if="selectedRecipe"></OneCard>
 
           </div>
@@ -74,9 +77,9 @@ export default {
 
   methods: {
     ...mapActions('recipes', ['getRecipes']),
-    ...mapActions('users', ['getUser', 'getFavorites']),
     ...mapMutations('recipes', ['openDialog']),
     ...mapGetters('recipes', ['filterByType']),
+    ...mapActions('users', ['getUser', 'getFavorites', 'logout']),
 
     getResult(value) {
       this.filtered = value;
@@ -89,11 +92,9 @@ export default {
       this.filtered = this.filterByType()(type)
     },
 
-    logout() {
-      firebaseInstance.firebase.auth().signOut().then(() => {
-        this.$router.push('/')
-      }).catch((error) => {
-      });
+    logoutBtn() {
+      this.logout()
+      this.$router.push('/')
     },
 
     async moveToProfile() {
@@ -114,7 +115,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family:Arial, sans-serif;
+  font-family: Arial, sans-serif;
   background-color: rgba(190, 140, 100, 0.2);
 }
 

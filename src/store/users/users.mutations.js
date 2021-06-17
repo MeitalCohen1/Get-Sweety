@@ -25,9 +25,12 @@ export default {
     setRemoveRecipeToUser: ((state, recipeId) => {
         let localFavorites = state.favorites
         for (const recipe in localFavorites) {
-            if (localFavorites[recipe] === recipeId) {
+            if (recipe === recipeId) {
                 delete localFavorites[recipe]
             }
+            // if (localFavorites[recipe] === recipeId) {
+            //     delete localFavorites[recipe]
+            // }
         }
         state.favorites = localFavorites
     }),

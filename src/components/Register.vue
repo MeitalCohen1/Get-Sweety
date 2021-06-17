@@ -7,17 +7,17 @@
         </template>
       </q-input>
 
-      <q-input color="deep-orange-4" v-model="email" label="אימייל" dir="ltr">
+      <q-input color="deep-orange-4" v-model="email" type="email" label="אימייל" dir="ltr">
         <template v-slot:prepend>
           <q-icon name="email"/>
         </template>
       </q-input>
 
-      <q-input color="deep-orange-4" type="password" v-model="password" label="סיסמא" dir="ltr">
-        <template v-slot:prepend>
-          <q-icon name="lock"/>
-        </template>
-      </q-input>
+            <q-input color="deep-orange-4" type="password" v-model="password" label="סיסמא" dir="ltr">
+              <template v-slot:prepend>
+                <q-icon name="lock"/>
+              </template>
+            </q-input>
 
       <q-input color="deep-orange-4" type="password" v-model="confirmPassword"
                label="אימות סיסמא" dir="ltr" :rules="[comparePassword => comparePassword === password]">
@@ -35,12 +35,6 @@
 
     <q-btn @click="clickToRegister()" color="deep-orange-4" style="margin-top: 40px">הירשם</q-btn>
     <br>
-    <!--    <p> או </p>-->
-    <!--    <br>-->
-    <!--    <div class="registerBtn">-->
-    <!--      <q-btn class="glossy" icon="facebook" @click="facebookRegister()" rounded color="primary" label="FACEBOOK"/>-->
-    <!--      <q-btn class="glossy" icon="Google" @click="googleRegister()" rounded color="orange-10" label="GOOGLE"/>-->
-    <!--    </div>-->
   </div>
 </template>
 
@@ -60,6 +54,7 @@ export default {
       password: '',
       dense: false,
       confirmPassword: '',
+      isPwd: true,
       // sweet: false,
       // salt: false,
     }
