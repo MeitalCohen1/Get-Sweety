@@ -48,11 +48,11 @@
 </template>
 
 <script>
-import {mapActions, mapMutations, mapState, mapGetters} from 'vuex'
+
 import CardViewer from "../components/CardViewer";
 import OneCard from "@/views/OneCard";
-import firebaseInstance from "@/middleware/firebase";
 import Ingredients from "@/components/Ingredients";
+import {mapActions, mapMutations, mapState, mapGetters} from 'vuex'
 
 export default {
   name: "Recipes",

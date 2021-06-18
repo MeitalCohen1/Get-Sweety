@@ -12,12 +12,6 @@ export default {
     //     commit('setUser', user)
     // },
 
-    // register: ({commit}, payload) => {
-    //     firebaseInstance.firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-    //         .then(data => {
-    //             database.
-    //         })
-    // },
 
     register: async ({state, commit}) => {
         const user = {};

@@ -1,16 +1,13 @@
 <template>
   <div class="home">
-
     <AddItem/>
     <TableViewer />
-
   </div>
 </template>
 
 <script>
 import AddItem from "@/components/AddItem";
 import TableViewer from "@/components/TableViewer";
-import {mapState, mapActions, mapMutations} from 'vuex';
 
 export default {
   name: "BackOffice",
@@ -33,6 +30,8 @@ export default {
 
 <style scoped>
 .home {
-  background-color: #eed4b8;
+  /*background-color: #eed4b8;*/
+  background-color: rgba(190, 140, 100, 0.2);
+  padding: 10px;
 }
 </style>

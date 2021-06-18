@@ -1,113 +1,95 @@
 <template>
-  <div class="inputs" dir="rtl">
-    הוסף מתכון חדש:
+  <div dir="rtl">
+    <div class="text">
+      <p>הוסף מתכון חדש:</p>
+    </div>
 
-    <q-input outlined v-model="localNewRecipe.name" label="שם המתכון" style="max-width: 300px" class="q-mb-lg"/>
-    <q-select outlined v-model="localNewRecipe.type" :options="typeOptions" style="max-width: 200px" class="q-mb-lg"
-              label="חלבי/פרווה">
-
+    <div class="inputs">
+    <q-input class="q-mb-sm" outlined v-model="localNewRecipe.name" label="שם המתכון"/>
+    <q-select class="q-mb-sm" outlined v-model="localNewRecipe.type" :options="typeOptions" label="חלבי/פרווה">
       <template v-slot:prepend>
-        <q-icon name="icecream"/>
+        <q-icon name="cake"/>
       </template>
     </q-select>
 
-    <q-select outlined v-model="localNewRecipe.difficulty" :options="diff" style="max-width: 200px" class="q-mb-lg"
-              label="רמת קושי">
+    <q-select class="q-mb-lg" outlined v-model="localNewRecipe.difficulty" :options="diff" label="רמת קושי">
       <template v-slot:prepend>
         <q-icon name="emoji_events"/>
       </template>
     </q-select>
 
-    <div class="row">
-      <div class="q-mx-lg">
-        <div>
           <div class="name">
-            <q-select
-                filled
-                v-model="newIngredient.name"
-                use-input
-                hide-selected
-                fill-input
-                input-debounce="0"
-                :options="options"
-                @filter="filterFn"
-                hint="הכנס מינימום שתי אותיות"
-                style="width: 250px; padding-bottom: 10px"
-            >
-              <template v-slot:no-option>
-                <q-item>
-                  <q-item-section class="text-orange">
-                    No results
-                  </q-item-section>
-                </q-item>
-              </template>
-            </q-select>
+              <q-select class="q-mb-sm" dir="rtl" outlined color="deep-orange-4" v-model="newIngredient.name" :options="options" label="הוסף מרכיב">
+                <template v-slot:prepend>
+                  <q-icon name="add" />
+                </template>
+              </q-select>
           </div>
-        </div>
 
-        <q-input outlined v-model="newIngredient.amount" label="הכנס כמות" style="max-width: 200px" class="q-mb-lg"/>
-        <q-btn @click="addIngredient" label="הוסף מרכיב" class="q-mb-lg"/>
-      </div>
+        <q-input outlined v-model="newIngredient.amount" label="הכנס כמות" class="q-mb-md"/>
+        <q-btn color="deep-orange-4" @click="addIngredient" label="הוסף מרכיב" class="q-mb-lg"/>
 
-      <div class="q-mx-lg bg-deep-orange-4 text-white glossy">
-        <div style="max-width: 400px">
-          <q-list class="glossy" bordered separator>
-            <q-item v-ripple>
-              <q-item-section>רשימת המרכיבים</q-item-section>
-            </q-item>
-
-            <q-item v-for="(Ingredient, index) of localNewRecipe.ingredients" :key="Ingredient.name" v-ripple>
-              <q-item-section>
-                <div>
+      <div>
+        <q-item class="q-mb-md" dir="rtl">
+          <q-item-section class="list text-bold ">רשימת המרכיבים:</q-item-section>
+        </q-item>
+        <q-list style="width: 300px;" dense bordered class="rounded-borders q-mb-md">
+            <q-item style="flex-direction: column" v-for="(Ingredient, index) of localNewRecipe.ingredients" :key="Ingredient.name" v-ripple>
+              <q-item-section style="margin-right: 10px">
+                <div class="nameAmount">
+                  <q-item-label style="margin-left: 5px; margin-block-start: auto;">{{ Ingredient.amount }}</q-item-label>
                   <q-item-label>{{ Ingredient.name }}</q-item-label>
-                  <q-item-label>{{ Ingredient.amount }}</q-item-label>
                 </div>
 
-                <div>
+                <div class="deleteBtn">
                   <q-btn
                       @click="removeIngredient(index)"
+                      outline
                       round
-                      color="primary"
+                      color="deep-orange-4"
                       size="xs"
                       icon="delete"
                   />
                 </div>
-
               </q-item-section>
             </q-item>
           </q-list>
-        </div>
       </div>
 
-    </div>
+      <div>
+        <q-input
+            v-model="localNewRecipe.preparation"
+            placeholder=" אופן ההכנה"
+            filled
+            type="textarea"
+            color="deep-orange-4"
+            bg-color="grey-4"
+            class="q-mb-md"
+            style="width: 300px;"
+        />
+      </div>
 
-    <div class="q-py-md" style="max-width: 300px">
-      <q-input
-          v-model="localNewRecipe.preparation"
-          outlined
-          autogrow
-          label="אופן ההכנה"
-      />
-    </div>
 
     <div class="addImg">
-      <q-input v-model="file" type="file" id="photo"/>
+      <q-input class="q-mb-md" v-model="file" type="file" id="photo"/>
 <!--      <q-btn @click="getImageUrl" class="q-mb-lg" label="הוסף תמונה למתכון"/>-->
 <!--            <q-btn @click="deleteImage" class="q-mb-lg" label="מחק תמונה"/>-->
     </div>
 
-    <q-btn v-if="!localNewRecipe.id" class="q-mb-lg" style="max-width: 200px" color="white" text-color="black"
+    <q-btn v-if="!localNewRecipe.id" class="q-mb-md" color="deep-orange-4" text-color="white"
            label="הכנס מתכון"
            @click="insert()"/>
-    <q-btn v-if="localNewRecipe.id" class="q-mb-lg" style="max-width: 200px" color="white" text-color="black"
+    <q-btn v-if="localNewRecipe.id" class="q-mb-md" color="deep-orange-4" text-color="white"
            label="עדכן מתכון"
            @click="update()"/>
+    </div>
   </div>
 </template>
 
 <script>
 import {mapState, mapActions, mapMutations} from 'vuex';
 import firebaseDatabase from '../middleware/firebase/database'
+import database from '../middleware/firebase/database'
 import firebaseInstance from "@/middleware/firebase";
 
 
@@ -134,7 +116,7 @@ export default {
         type: '',
         ingredients: [],
         preparation: '',
-        difficulty: 3,
+        difficulty: null,
         image: null
       },
 
@@ -205,17 +187,17 @@ export default {
       this.localNewRecipe.ingredients.splice(foundIndex, 1)
     },
 
-    filterFn(val, update, abort) {
-      if (val.length < 2) {
-        abort()
-        return
-      }
-
-      update(() => {
-        const needle = val.toLowerCase()
-        this.options = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
-      })
-    }
+    // filterFn(val, update, abort) {
+    //   if (val.length < 2) {
+    //     abort()
+    //     return
+    //   }
+    //
+    //   update(() => {
+    //     const needle = val.toLowerCase()
+    //     this.options = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
+    //   })
+    // }
   },
   created() {
     this.setEditedRecipeId(this.$route.params.id);
@@ -228,33 +210,31 @@ export default {
 </script>
 
 <style scoped>
+
+.text {
+  margin: 20px;
+}
 .inputs {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 30px;
-  flex-wrap: wrap;
-  font-family: 'Amatic SC', cursive;
+  width: 300px;
+  margin: 20px;
+  font-family: Arial, sans-serif;
 }
 
-.name {
-  flex-direction: column;
-  justify-content: right;
-  margin: 30px;
-  flex-wrap: wrap;
-  font-family: 'Amatic SC', cursive;
+.nameAmount {
+  display: flex;
+  flex-direction: row;
+  font-family: Arial, sans-serif;
+  margin-right: 10px;
+}
+
+.deleteBtn {
+  transform: translateY(-20px) translateX(180px);
 }
 
 .addImg {
-  flex-direction: row;
-  justify-items: right;
-  width: 300px;
-  max-width: 400px;
-  justify-content: start;
-  flex-wrap: wrap;
-  /*align-items: inherit;*/
-  font-family: 'Amatic SC', cursive;
-  margin: 20px;
+  margin: 10px;
 }
 
 </style>

@@ -53,7 +53,7 @@
           </div>
 
           <div class="name text-subtitle1" align="right">
-            <div dir="rtl" style="font-size: 15px" class="text-orange-10 text-right">{{ "מרכיבים:" }}</div>
+            <div dir="rtl" style="font-size: 13px" class="text-orange-10 text-right">{{ "מרכיבים:" }}</div>
             <q-list dense padding class="rounded-borders">
             <q-item dir="rtl" v-for="Ingredient in selectedRecipe.ingredients" :key="Ingredient.name" v-ripple>
               <q-item-section class="Ingredient">
@@ -69,8 +69,13 @@
 
       <q-card-section>
         <div class="text-caption text-grey" style="size: 15px">
-          <div dir="rtl" class="preparation text-orange-10 text-right">{{ "אופן הכנה:" }}</div>
-          <div class="text-body2 text-orange-10 text-right">{{ selectedRecipe.preparation }}</div>
+          <div class="preparation text-orange-10 text-right">{{ ":אופן הכנה" }}</div>
+          <q-list dense padding class="rounded-borders">
+<!--          <div dir="rtl" class="text-body2 text-orange-10 text-right">{{ selectedRecipe.preparation }}</div>-->
+            <q-item-section dir="rtl" class="Ingredient">
+              <q-item-label>{{ selectedRecipe.preparation }}</q-item-label>
+            </q-item-section>
+          </q-list>
         </div>
       </q-card-section>
 
@@ -87,7 +92,6 @@
 <script>
 import firebaseDatabase from '../middleware/firebase/database'
 import {mapMutations, mapState, mapActions} from "vuex";
-
 
 export default {
   name: "OneCard",
@@ -190,11 +194,11 @@ export default {
 
 .amount {
   align-items: flex-start;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .Ingredient {
-  font-size: 15px;
+  font-size: 13px;
 }
 
 </style>
