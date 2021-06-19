@@ -123,6 +123,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0px 1px 10px 1px #000;
+  background: seashell;
 }
 
 .upper-container {
@@ -133,28 +134,30 @@ export default {
 
 .image-container {
   background: white;
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   padding: 5px;
-  transform: translate(120px, 100px);
+  transform: translate(110px, 100px);
 }
 
 .image-container img {
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
 }
 
 .lower-container {
   text-align: left;
-  margin-top: 50px;
+  margin-top: 80px;
+  font-size: 16px;
 }
 
 .cards {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: seashell;
 }
 
 </style>

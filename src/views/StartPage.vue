@@ -55,7 +55,7 @@ export default {
 }
 
 .btns {
-  margin: 10px;
+  margin: 30px;
   /*padding: 10px;*/
   /*  margin-bottom: 40px;*/
   /*  position: ;*/

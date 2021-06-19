@@ -116,7 +116,7 @@ export default {
         type: '',
         ingredients: [],
         preparation: '',
-        difficulty: null,
+        difficulty: 1,
         image: null
       },
 

@@ -56,7 +56,6 @@
 
 
 <script>
-// import api from '../middleware/api';
 import {mapState, mapActions} from 'vuex';
 // import firebaseDatabase from '../middleware/firebase/database';
 

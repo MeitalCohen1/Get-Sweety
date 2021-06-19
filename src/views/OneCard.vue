@@ -68,11 +68,11 @@
       </div>
 
       <q-card-section>
-        <div class="text-caption text-grey" style="size: 15px">
+        <div class="text-caption" style="font-size: 13px">
           <div class="preparation text-orange-10 text-right">{{ ":אופן הכנה" }}</div>
           <q-list dense padding class="rounded-borders">
 <!--          <div dir="rtl" class="text-body2 text-orange-10 text-right">{{ selectedRecipe.preparation }}</div>-->
-            <q-item-section dir="rtl" class="Ingredient">
+            <q-item-section dir="rtl" class="preparation  text-right">
               <q-item-label>{{ selectedRecipe.preparation }}</q-item-label>
             </q-item-section>
           </q-list>
