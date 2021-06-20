@@ -14,24 +14,24 @@
         </div>
 
         <q-card-actions class="cardText">
-<!--          <div class="">-->
-            <div class="name">
-              <div class="text-body2 text-orange-10 ">{{ card.name }}</div>
-            </div>
+          <!--          <div class="">-->
+          <div class="name">
+            <div class="text-body2 text-orange-10 ">{{ card.name }}</div>
+          </div>
 
-            <div class="typeAndDiff">
-              <div class="rating">
-                <q-rating
-                    v-model="card.difficulty"
-                    size="1em"
-                    :color-selected="ratingColors"
-                    disable
-                />
-              </div>
-              <p style="color: #e37946; margin: 5px">|</p>
-              <div class="type text-orange-10 text-right">{{ card.type }}</div>
+          <div class="typeAndDiff">
+            <div class="rating">
+              <q-rating
+                  v-model="card.difficulty"
+                  size="1em"
+                  :color-selected="ratingColors"
+                  disable
+              />
             </div>
-<!--          </div>-->
+            <p style="color: #e37946; margin: 5px">|</p>
+            <div class="type text-orange-10 text-right">{{ card.type }}</div>
+          </div>
+          <!--          </div>-->
           <!--          <q-btn flat round color="teal" icon="bookmark"/>-->
           <!--          <q-btn flat round color="primary" icon="share"/>-->
 
@@ -53,7 +53,7 @@ export default {
     OneCard,
   },
   computed: {
-    ...mapState('users',['favorites', 'userRecipes'])
+    ...mapState('users', ['favorites', 'userRecipes'])
   },
   data() {
     return {
@@ -73,16 +73,16 @@ export default {
       this.model = true;
     },
 
-     removeFavoriteFromUser() {
+    removeFavoriteFromUser() {
       this.removeRecipeFromUser({
-        dbKey : this.favorites[this.recipeId],
-        recipeId : this.recipeId
+        dbKey: this.favorites[this.recipeId],
+        recipeId: this.recipeId
       })
       this.model = false;
     }
   },
   created() {
-    this.model =  !!(this.favorites[this.recipeId]); // If it exists you will become right
+    this.model = !!(this.favorites[this.recipeId]); // If it exists you will become right
   }
 }
 </script>
@@ -102,7 +102,7 @@ export default {
 }
 
 .typeAndDiff {
-display: flex;
+  display: flex;
   flex-direction: row;
   justify-items: center;
   align-items: center;

@@ -1,8 +1,9 @@
 <template>
-  <q-page class="table" dir="rtl">
+  <q-page dir="rtl">
     <div class="q-pa-md">
 
       <q-table
+          class="table"
           :title="tableName"
           :data="recipes"
           :columns="columns"
@@ -26,9 +27,10 @@
               </q-item>
             </q-td>
             <q-td key="preparation" :props="props">{{ props.row.preparation }}
-              <q-popup-edit v-model="props.row.preparation" title="Edit the preparation">
-                <q-input v-model="props.row.preparation" dense autofocus counter/>
-              </q-popup-edit>
+
+<!--              <q-popup-edit v-model="props.row.preparation" title="Edit the preparation">-->
+<!--                <q-input v-model="props.row.preparation" dense autofocus counter/>-->
+<!--              </q-popup-edit>-->
             </q-td>
             <q-td key="difficulty" :props="props">
               <div class="text-center">
@@ -61,8 +63,8 @@ import {mapState, mapActions} from 'vuex';
 
 export default {
   name: "TableViewer",
-  props: ['tableName', 'item'], // פה הטענו את הפרופס מCOMP HOME
-  data() { // כל מה שנכנס בדאטה הקוד שלי יכול לעשות את המושג ביינדינג כלומר הHTML יכול לטעון
+  props: ['tableName', 'item'],
+  data() {
     return {
       columns: [
         {
@@ -71,18 +73,14 @@ export default {
           label: 'שם המתכון',
           align: 'left',
           field: row => row.name,
-          // format: val => `${val}`,
           sortable: true
         },
-        {
-          name: 'type', align: 'center', label: 'חלבי/פרווה', field: 'type',
-        },
+        {name: 'type', align: 'center', label: 'חלבי/פרווה', field: 'type',},
         {name: 'ingredients', label: 'מרכיבים', field: 'ingredients', align: 'center'},
         {name: 'preparation', label: 'אופן הכנה', field: 'preparation'},
         {name: 'difficulty', label: 'רמת קושי', align: 'center', field: 'difficulty'},
         {name: 'id', label: 'פעולות', field: 'id', align: 'center'}
       ],
-      // data: [],
       ratingColors: ['orange-3', 'orange-5', 'orange', 'orange-9', 'orange-10'],
     }
   },
@@ -90,7 +88,7 @@ export default {
   methods: {
     ...mapActions('recipes', ['deleteRecipe', 'getRecipes']),
     goToItem(id) {
-      this.$router.push(`/item/${id}`) // לך ל-ITEM.ID
+      this.$router.push(`/item/${id}`)
     },
     remove(id) {
       this.deleteRecipe({entity: 'recipes', id})
@@ -118,6 +116,17 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style>
+
+.table {
+  background-color: rgb(240, 230, 223);
+}
+
+.q-table--no-wrap th, .q-table--no-wrap td {
+  white-space: inherit;
+  text-align: left;
+}
+
+
 
 </style>

@@ -44,9 +44,9 @@ export default {
     ...mapActions('users', ['loginWithGoogle', 'loginWithEmailPassword']),
     ...mapMutations('users', ['setLocalUser']),
 
-    loginWithGoogleBtn() {
-      this.loginWithGoogle()
-      this.$router.push('/home')
+    async loginWithGoogleBtn() {
+     await this.loginWithGoogle()
+      await this.$router.push('/home')
   },
 
     loginWithEmailPasswordBtn() {
@@ -71,7 +71,6 @@ export default {
 
 .inputLogin {
   margin-bottom: 40px;
-
 }
 
 .login {
