@@ -6,7 +6,6 @@
           <q-tabs no-caps dense flat active-color="grey" class="text-white" v-model="tab">
             <q-tab name="face" style="font-size:17px" dense flat class="q-mr-lg" icon="face"/>
             <q-tab name="search" style="font-size:17px" dense flat class="q-mr-lg" icon="search"/>
-            <!--            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="favorite" />-->
             <q-tab name="home" style="font-size:17px" dense flat class="q-mr-lg" icon="home"
                    @click="$router.push('/recipes')"/>
             <q-tab name="logout" search style="font-size:17px" dense flat class="q-mr-lg" @click="logoutBtn()"
@@ -16,10 +15,6 @@
       </q-footer>
       <q-page class="allPage" dir="rtl">
         <q-card class="card-container" flat>
-          <!--        <q-btn class="q-mr-sm" color="deep-orange-4" dense flat icon="logout" round size="12px" @click="logout()"></q-btn>-->
-          <!--        <q-btn class="q-mr-sm" color="deep-orange-4" dense flat icon="settings" round size="12px" :to="`/settings/${this.userId}`"></q-btn>-->
-          <!--        <q-btn class="q-mr-sm" color="deep-orange-4" dense flat icon="edit" round size="12px" :to="`/edit-profile/${this.userId}`"></q-btn>-->
-
           <q-card-section class="upper-container text-center">
             <div class="image-container">
               <img v-if="user.photoURL"
@@ -86,7 +81,6 @@ export default {
     return {
       profileMode: 'true',
       onlyFavorites: [],
-      // model: false,
       tab: 'face'
     }
   },
@@ -108,7 +102,6 @@ export default {
   async created() {
     await this.getUserById(window.user.uid)
     await this.getUserRecipes()
-    // this.model =  !!(this.userRecipes);
   }
 }
 </script>
@@ -117,7 +110,6 @@ export default {
 .card-container {
   width: 375px;
   height: 812px;
-  /*background: #fff;*/
   position: absolute;
   top: 50%;
   left: 50%;
@@ -128,7 +120,6 @@ export default {
 
 .upper-container {
   height: 180px;
-  /*width: 400px;*/
   background-color: rgba(190, 140, 100, 0.2);
 }
 

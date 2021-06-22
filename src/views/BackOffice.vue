@@ -15,22 +15,11 @@ export default {
   components: {
     AddItem, TableViewer,
   },
-  data() {
-    return {
-      // isReload: false
-    }
-  },
-  methods: {
-    // reloadTable() {
-    //   this.isReload = !this.isReload;
-    // }
-  }
 }
 </script>
 
 <style scoped>
 .home {
-  /*background-color: #eed4b8;*/
   background-color: rgba(190, 140, 100, 0.2);
   padding: 10px;
 }

@@ -1,32 +1,16 @@
 import database from "../../middleware/firebase/database";
-// import firebaseInstance from '../../middleware/firebase';
-
 
 export default {
-    // insertLogin: async ({state, commit}) => {
-    //     const user = {};
-    //     user.id = window.user.providerData[0]
-    //
-    //     Object.assign(user, state.user)
-    //     user.id = await database.setUser({entity: `users'/${window.user.uid}/recipe`, user})
-    //     commit('setUser', user)
-    // },
-
 
     register: async ({state, commit}) => {
         const user = {};
-        // user.id = window.user.providerData[0]
         Object.assign(user, state.user)
         user.uid = await database.userRegister(user)
         commit('setUser', user)
-        // const user = await database.userRegister(payload)
-        //    commit('setUserRegister', user)
     },
 
     loginWithGoogle: async ({state, commit}) => {
-        // const user = {};
         const user = await database.userLoginWithGoogle()
-        // Object.assign(user, newUser)
         commit('setUser', user)
     },
 
@@ -45,7 +29,6 @@ export default {
         const user = await database.getUser({entity: 'user'});
         commit('setUser', user)
     },
-
 
     async getUserById({commit}, id) {
         const user = await database.getUserById(id);

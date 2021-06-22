@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home'
 import Login from '../components/Login.vue'
-import Test from '../views/Test.vue';
 import firebaseInstance from '../middleware/firebase'
 
 Vue.use(VueRouter)
@@ -12,12 +11,6 @@ const routes = [
         path: '/home',
         name: 'Home',
         component: Home,
-        meta: {authNotRequired: true}
-    },
-    {
-        path: '/test',
-        name: 'Test',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Test.vue'),
         meta: {authNotRequired: true}
     },
     {
@@ -58,39 +51,18 @@ const routes = [
     {
         path: '/recipes',
         name: 'Recipes',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '../views/Recipes.vue')
     },
-    // {
-    //     path: '/parve',
-    //     name: 'Parve',
-    //     // route level code-splitting
-    //     // this generates a separate chunk (about.[hash].js) for this route
-    //     // which is lazy-loaded when the route is visited.
-    //     component: () => import(/* webpackChunkName: "about" */ '../views/Parve.vue')
-    // },
     {
         path: '/profile/:userId',
         name: 'Profile',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '../views/Profile')
     },
     {
         path: '/back-office',
         name: 'BackOffice',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '../views/BackOffice')
     },
-    {path: '/test',
-    name: 'test',
-    component: ()=> import('../views/Test')
-    }
 ]
 
 const router = new VueRouter({

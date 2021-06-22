@@ -72,8 +72,6 @@
 
     <div class="addImg">
       <q-input class="q-mb-md" v-model="file" type="file" id="photo"/>
-<!--      <q-btn @click="getImageUrl" class="q-mb-lg" label="הוסף תמונה למתכון"/>-->
-<!--            <q-btn @click="deleteImage" class="q-mb-lg" label="מחק תמונה"/>-->
     </div>
 
     <q-btn v-if="!localNewRecipe.id" class="q-mb-md" color="deep-orange-4" text-color="white"
@@ -100,7 +98,7 @@ const stringOptions = [
 export default {
   name: "AddItem",
   props: ['tableName'],
-  computed: mapState('recipes',['editedRecipeId','editedRecipe'] ),
+  computed: mapState('recipes',['editedRecipeId','editedRecipe']),
 
   data() {
     return {
@@ -160,16 +158,6 @@ export default {
           });
     },
 
-    // deleteImage(){
-    //   const storage = firebaseInstance.firebase.storage();
-    //   const storageRef = storage.ref(`recipes/`);
-    //   storageRef.child(`/${this.file[0].name}`).delete().then(() => {
-    //     console.log('image delete')
-    //     this.localNewRecipe.image = null
-    //   }).catch((error) => {
-    //   });
-    // },
-
     async update() {
       if (this.file){
         const url = await this.getImageUrl()
@@ -186,18 +174,6 @@ export default {
     removeIngredient(foundIndex) {
       this.localNewRecipe.ingredients.splice(foundIndex, 1)
     },
-
-    // filterFn(val, update, abort) {
-    //   if (val.length < 2) {
-    //     abort()
-    //     return
-    //   }
-    //
-    //   update(() => {
-    //     const needle = val.toLowerCase()
-    //     this.options = stringOptions.filter(v => v.toLowerCase().indexOf(needle) > -1)
-    //   })
-    // }
   },
   created() {
     this.setEditedRecipeId(this.$route.params.id);

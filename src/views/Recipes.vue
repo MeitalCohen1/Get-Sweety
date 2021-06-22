@@ -11,7 +11,6 @@
           <q-tabs no-caps dense flat active-color="grey" class="text-white" v-model="tab">
             <q-tab name="face" style="font-size:17px" dense flat class="q-mr-lg" @click=moveToProfile icon="face"/>
             <q-tab name="search" style="font-size:17px" dense flat class="q-mr-lg" icon="search"/>
-            <!--            <q-btn  style="font-size:17px" dense flat class="q-mr-lg" icon="favorite" />-->
             <q-tab name="home" style="font-size:17px" dense flat class="q-mr-lg" icon="home"/>
             <q-tab name="logout" search style="font-size:17px" dense flat class="q-mr-lg" @click="logoutBtn()"
                    icon="logout"/>
@@ -128,6 +127,7 @@ export default {
 .footer {
   justify-content: center;
   align-items: center;
+  inline-size: max-content;
 }
 
 .Button {

@@ -146,5 +146,6 @@ export default {
 .card {
   display: flex;
   flex-direction: column;
+  background: seashell;
 }
 </style>

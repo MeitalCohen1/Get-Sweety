@@ -1,4 +1,4 @@
-import database from "../../middleware/firebase/database"; //  לאקשן מותר לצאת החוצה ולבצע פעולות מול הפייר בייס וכדומה
+import database from "../../middleware/firebase/database";
 
 export default {
     getRecipes: async ({commit}) => {
@@ -17,10 +17,8 @@ export default {
         commit('setByIngredients', ingredientsHm)
     },
 
-    deleteRecipe: async ({state, commit}, params) => {// params= {entity, id}
+    deleteRecipe: async ({state, commit}, params) => {
         await database.remove(params);
-        // const recipeId = state.editedRecipeId;
-        // commit('resetEditedRecipeId')
         commit('deleteRecipe', params.id)
     },
 
@@ -54,25 +52,6 @@ export default {
 
     getImageUrl: ({state, commit}, file) => {
         return database.addImage({entity: 'recipes', file: file})
-    },
-
-    // deleteImg() {
-    //     const self = this
-    //     const storage = firebaseInstance.firebase.storage();
-    //     const storageRef = storage.ref(`recipes/`);
-    //     storageRef.child(`/${this.file[0].name}`).delete().then(() => {
-    //         console.log('image delete')
-    //         self.localNewRecipe.image = null
-    //     }).catch((error) => {
-    //     });
-    // },
-
-    googleLogin: ({state, commit}) => {
-        return database.googleProvider()
-    },
-
-    providerEmailPassword: ({state, commit}) => {
-        return database.loginWithEmailPassword()
     },
 
     setSelectedByIngredients: ({state, commit}, options) => {

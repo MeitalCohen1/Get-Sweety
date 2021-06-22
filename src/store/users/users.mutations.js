@@ -1,6 +1,6 @@
 export default {
 
-    setLocalUser: ((state, user) => { //הסיסמא מופיעה גם בסטייט, האם תקין?
+    setLocalUser: ((state, user) => {
         state.user = user
     }),
 
@@ -28,9 +28,6 @@ export default {
             if (recipe === recipeId) {
                 delete localFavorites[recipe]
             }
-            // if (localFavorites[recipe] === recipeId) {
-            //     delete localFavorites[recipe]
-            // }
         }
         state.favorites = localFavorites
     }),
@@ -38,12 +35,4 @@ export default {
     setUserRecipes: ((state, userRecipes) => {
         state.userRecipes = userRecipes
     }),
-
-    // openDialog: ((state) => {
-    //     state.isClicked = !state.isClicked;
-    // }),
-    //
-    // closeDialog: ((state) => {
-    //     state.isClicked = !state.isClicked;
-    // }),
 }

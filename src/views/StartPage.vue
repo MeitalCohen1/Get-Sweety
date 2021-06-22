@@ -7,9 +7,7 @@
 
     <div class="headLine column" style="align-items: center">
       <p style="font-size: 46px">Get Sweety</p>
-      <!--    </div>-->
 
-      <!--    <div class="text" style="text-align: center">-->
       <p dir="rtl" style="font-family:Arial,sans-serif; font-size: small; color: gray; margin-bottom: 15px; text-align: center">
         מציעים לך מתכונים מתוקים בהתאם למרכיבים שיש ברשותך במטבח :)
       </p>
@@ -50,15 +48,10 @@ export default {
   color: #fd7862;
   margin-top: -30px;
   font-family: 'Cookie', cursive;
-  /*padding: 15px;*/
-  /*position: ;*/
 }
 
 .btns {
   margin: 30px;
-  /*padding: 10px;*/
-  /*  margin-bottom: 40px;*/
-  /*  position: ;*/
 }
 
 </style>

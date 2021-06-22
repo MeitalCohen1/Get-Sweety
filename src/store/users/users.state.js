@@ -8,5 +8,5 @@ export default {
     userId: '',
     favorites: {},
     userRecipes: {},
-    // isClicked:false,
+
 }

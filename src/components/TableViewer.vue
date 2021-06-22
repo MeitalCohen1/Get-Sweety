@@ -27,10 +27,6 @@
               </q-item>
             </q-td>
             <q-td key="preparation" :props="props">{{ props.row.preparation }}
-
-<!--              <q-popup-edit v-model="props.row.preparation" title="Edit the preparation">-->
-<!--                <q-input v-model="props.row.preparation" dense autofocus counter/>-->
-<!--              </q-popup-edit>-->
             </q-td>
             <q-td key="difficulty" :props="props">
               <div class="text-center">
@@ -59,7 +55,6 @@
 
 <script>
 import {mapState, mapActions} from 'vuex';
-// import firebaseDatabase from '../middleware/firebase/database';
 
 export default {
   name: "TableViewer",
@@ -97,22 +92,7 @@ export default {
   },
   created() {
     this.getRecipes()
-
-    // firebaseDatabase.getRef({entity: this.tableName})
-    //     .on('child_changed', (snapshot) => {
-    //       this.getRecipes()
-    // });
   },
-
-  // watch: { // ווטצ' מאזין האם בוצע שינוי או לא בוצע שינוי?
-  //   recipes() {
-  //     for (const key in this.recipes) {
-  //       const item = this.recipes[key];
-  //       item.id = key
-  //       this.data.push(item)
-  //     }
-  //   }
-  // }
 }
 </script>
 
@@ -126,7 +106,4 @@ export default {
   white-space: inherit;
   text-align: left;
 }
-
-
-
 </style>

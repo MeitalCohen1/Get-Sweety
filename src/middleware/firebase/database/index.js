@@ -1,6 +1,5 @@
 import firebaseInstance from '../';
 
-
 function getRef(options) {
     return firebaseInstance.firebase.database().ref(`${options.entity}`)
 }
@@ -45,59 +44,29 @@ function userRegister(payload) {
                 email: payload.email,
             })
             return data.user.uid
-            // let newUser = data.user
-            // newUser.updateProfile({
-            //     displayName: payload.fullName,
-            //     // photoURL:payload
-            // })
-            // return newUser
-
-            // var user = userCredential.user;
-            // window.user = user
-            //   return user;
-            // const newUser = user.providerData[0]
-            // firebaseDatabase.setUser({user: newUser})
-            // console.log(user)
         })
-
-    // .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    // });
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+        });
 }
 
 function userLoginWithGoogle() {
     var provider = new firebaseInstance.firebase.auth.GoogleAuthProvider();
     return firebaseInstance.firebase.auth().signInWithPopup(provider)
         .then((result) => {
+            debugger
             /** @type {firebase.auth.OAuthCredential} */
             var credential = result.credential;
-            // This gives you a Google Access Token. You can use it to access the Google API.
             var token = credential.accessToken;
-            // The signed-in user info.
             var user = result.user;
             const newUser = {};
             newUser.displayName = user.displayName
             newUser.email = user.email
             newUser.uid = user.uid
             newUser.photoURL = user.photoURL
-            // const newUser = user.providerData[0]
-            // newUser.uid = user.uid;
             firebaseInstance.firebase.database().ref('users').child(user.uid).set(newUser);
-            // .then(r => {
             return newUser;
-            // console.log('done')
-            // })
-            // uid: newUser.uid,
-            // displayName: newUser.displayName,
-            // email: newUser.email,
-            // })
-            // return newUser;
-            // window.user = result.user;
-            // database.setUser({user: newUser}).then(() => {
-            //   this.setUser(newUser)
-            //   localStorage.setItem('user', JSON.stringify(newUser))
-            // })
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -109,17 +78,15 @@ function userLoginWithGoogle() {
 function userLogin(payload) {
     return firebaseInstance.firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then((data) => {
-           // userCredential.user;
             firebaseInstance.firebase.database().ref('users').child(data.user.uid).set({
                 uid: data.user.uid,
                 email: payload.email,
             })
             return data.user.uid
-          // localStorage.setItem('user', JSON.stringify(user))
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
+            var errorCode = error.code;
+            var errorMessage = error.message;
         });
 }
 
@@ -137,7 +104,7 @@ function getById(options) {
 }
 
 function setUser(options) {
-    return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data`).set(options.user); // maybe
+    return firebaseInstance.firebase.database().ref(`users/${window.user.uid}/data`).set(options.user);
 }
 
 function create(options) {
@@ -165,7 +132,6 @@ function addImage(options) {
         });
 }
 
-// >>> GET THIS CURRENT LOGGED IN USER ID <<<< //
 function getUserById(id) {
     return firebaseInstance.firebase.database().ref(`users/${window.user.uid}`).get()
         .then(res => {
@@ -221,16 +187,6 @@ async function readUserRecipes(ref) {
     return favoriteRecipes;
 }
 
-// async function callAble(data) {
-//     const {number} = data;
-//     const {recipe} = data;
-//     const sendToWhatsApp = firebaseInstance.firebase.functions().httpsCallable('sendRecipeInWhatApp');
-//     await sendToWhatsApp({number, recipe})
-//         .then(r => console.log('Success'))
-//         .catch(e => console.log(e))
-// }
-
-
 export default {
     read,
     create,
@@ -251,37 +207,3 @@ export default {
     readFavorites,
     readUserRecipes,
 }
-
-
-//
-// function googleProvider() {
-//     var provider = new firebaseInstance.firebase.auth.GoogleAuthProvider();
-//     firebaseInstance.firebase.auth()
-//         .signInWithPopup(provider)
-//         .then((result) => {
-//             /** @type {firebase.auth.OAuthCredential} */
-//             var credential = result.credential;
-//
-//             // This gives you a Google Access Token. You can use it to access the Google API.
-//             var token = credential.accessToken;
-//             // The signed-in user info.
-//             var user = result.user;
-//             const newUser = user.providerData[0]
-//             window.user = result.user;
-//             setUser({user: newUser})
-//             localStorage.setItem('user', JSON.stringify(newUser))
-//
-//             debugger
-//             return newUser
-//         }).catch((error) => {
-//         // Handle Errors here.
-//         var errorCode = error.code;
-//         var errorMessage = error.message;
-//         // The email of the user's account used.
-//         var email = error.email;
-//         // The firebase.auth.AuthCredential type that was used.
-//         var credential = error.credential;
-//     });
-// }
-//
-//

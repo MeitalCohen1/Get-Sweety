@@ -80,7 +80,6 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   font-family: Arial, sans-serif;
-  /*width: 300px;*/
   height: 700px;
 }
 

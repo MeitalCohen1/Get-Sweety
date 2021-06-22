@@ -26,13 +26,6 @@
         </template>
       </q-input>
     </div>
-
-    <!--        <div class="checkBox q-gutter-sm">-->
-    <!--          <p style="color: darkgray"> העדפה למתכונים :</p>-->
-    <!--          <q-checkbox dense v-model="localUser.sweet" label="מתוק" color="deep-orange-4"/>-->
-    <!--          <q-checkbox dense v-model="localUser.salt" label="מלוח" color="deep-orange-4"/>-->
-    <!--        </div>-->
-
     <q-btn @click="clickToRegister()" color="deep-orange-4" style="margin-top: 40px">הירשם</q-btn>
     <br>
   </div>
@@ -43,7 +36,6 @@ import firebaseInstance from '../middleware/firebase'
 import firebaseDatabase from '../middleware/firebase/database'
 import {mapActions, mapState, mapMutations} from 'vuex';
 
-
 export default {
   name: "Register",
   computed: mapState('users', ['user']),
@@ -52,19 +44,15 @@ export default {
       displayName: '',
       email: '',
       password: '',
+      favorite: '',
       dense: false,
       confirmPassword: '',
       isPwd: true,
-      // sweet: false,
-      // salt: false,
     }
   },
   methods: {
     ...mapActions('users', ['register']),
     ...mapMutations('users', ['setLocalUser']),
-    // validatePass() {
-    //   console.log(this.password.value === this.confirmPassword.value)
-    // },
 
     clickToRegister() {
       let payload = {}
@@ -75,26 +63,6 @@ export default {
       this.register()
       this.$router.push('/home')
     }
-
-
-
-    // register() {
-    //   firebaseInstance.firebase.auth().createUserWithEmailAndPassword(this.localUser.email, this.password)
-    //       .then((userCredential) => {
-    //         // Signed in
-    //         var user = userCredential.user;
-    //         window.user = user
-    //         // const newUser = user.providerData[0]
-    //         // firebaseDatabase.setUser({user: newUser})
-    //         // this.$router.push('/home')
-    //         // console.log(user)
-    //         this.register()
-    //       })
-    //       .catch((error) => {
-    //         const errorCode = error.code;
-    //         const errorMessage = error.message;
-    //       });
-    // },
   },
 }
 </script>
@@ -108,19 +76,6 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   font-family: Arial, sans-serif;
-  /*width: 300px;*/
   height: 700px;
-}
-
-.checkBox {
-  flex: 1;
-  margin: 60px;
-}
-
-.registerBtn {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 10px;
 }
 </style>

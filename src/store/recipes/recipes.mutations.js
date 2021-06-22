@@ -1,4 +1,4 @@
-export default {// רק למיוטיישן מותר לבצע שינוי לסטייט
+export default {
 
     setRecipes: ((state, recipes) => {
         state.recipes = recipes

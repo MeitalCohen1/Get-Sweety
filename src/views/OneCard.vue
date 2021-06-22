@@ -31,11 +31,6 @@
             />
             <div dir="rtl" class="diff text-orange-10 text-right">{{ "דרגת קושי:" }}</div>
           </div>
-
-          <!--          <div class="col-auto text-grey text-caption q-pt-md row no-wrap items-center">-->
-          <!--            &lt;!&ndash;              <q-icon name="favorite"/>&ndash;&gt;-->
-          <!--            I like it!-->
-          <!--          </div>-->
         </div>
       </q-card-section>
 
@@ -62,8 +57,6 @@
             </q-item>
             </q-list>
           </div>
-
-
         </q-card-section>
       </div>
 
@@ -71,20 +64,12 @@
         <div class="text-caption" style="font-size: 13px">
           <div class="preparation text-orange-10 text-right">{{ ":אופן הכנה" }}</div>
           <q-list dense padding class="rounded-borders">
-<!--          <div dir="rtl" class="text-body2 text-orange-10 text-right">{{ selectedRecipe.preparation }}</div>-->
             <q-item-section dir="rtl" class="preparation  text-right">
               <q-item-label>{{ selectedRecipe.preparation }}</q-item-label>
             </q-item-section>
           </q-list>
         </div>
       </q-card-section>
-
-      <!--      <q-separator/>-->
-
-      <!--      <q-card-actions align="right" v-close-popup>-->
-      <!--        <q-btn v-close-popup flat color="primary" label="Reserve"/>-->
-      <!--        <q-btn v-close-popup flat color="primary" round icon="event" />-->
-      <!--      </q-card-actions>-->
     </q-card>
   </q-dialog>
 </template>
@@ -155,7 +140,6 @@ export default {
   width: 400px;
   border-radius: 20px;
   font-family: Arial, sans-serif;
-
 }
 
 .nameType {
@@ -179,10 +163,6 @@ export default {
 
 .nameAmount {
   flex-direction: row;
-  /*align-items: center;*/
-  /*justify-items: center;*/
-  /*align-self: center;*/
-  /*align-items: center;*/
   justify-content: space-around;
   padding: 20px;
   margin-top: -20px;

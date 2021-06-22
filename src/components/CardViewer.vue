@@ -14,7 +14,6 @@
         </div>
 
         <q-card-actions class="cardText">
-          <!--          <div class="">-->
           <div class="name">
             <div class="text-body2 text-orange-10 ">{{ card.name }}</div>
           </div>
@@ -31,10 +30,6 @@
             <p style="color: #e37946; margin: 5px">|</p>
             <div class="type text-orange-10 text-right">{{ card.type }}</div>
           </div>
-          <!--          </div>-->
-          <!--          <q-btn flat round color="teal" icon="bookmark"/>-->
-          <!--          <q-btn flat round color="primary" icon="share"/>-->
-
         </q-card-actions>
       </q-card>
     </div>
@@ -82,7 +77,7 @@ export default {
     }
   },
   created() {
-    this.model = !!(this.favorites[this.recipeId]); // If it exists you will become right
+    this.model = !!(this.favorites[this.recipeId]);
   }
 }
 </script>
@@ -109,26 +104,15 @@ export default {
 }
 
 .name {
-  /*display: flex;*/
-  /*flex-direction: row;*/
-  /*margin: 5px;*/
   padding: 5px;
-  /*align-items: center;*/
   position: center;
 }
 
 .img {
   width: 100%;
   height: 200px;
-  /*margin-top: -50px;*/
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-}
-
-.typeDiff {
-  flex-direction: row;
-  /*margin: -15px;*/
-  justify-content: space-between;
 }
 
 .rating {
@@ -136,11 +120,7 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-items: center;
-  /*left: 30px;*/
-  /*justify-content: left;*/
   margin: 5px;
-  /*padding: -50px;*/
-  /*align-self: start;*/
 }
 
 .type {
