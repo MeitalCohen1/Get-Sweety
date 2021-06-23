@@ -65,7 +65,7 @@ function userLoginWithGoogle() {
             newUser.email = user.email
             newUser.uid = user.uid
             newUser.photoURL = user.photoURL
-            firebaseInstance.firebase.database().ref('users').child(user.uid).set(newUser);
+            // firebaseInstance.firebase.database().ref('users').child(user.uid).set(newUser);
             return newUser;
         }).catch((error) => {
             const errorCode = error.code;
@@ -78,10 +78,10 @@ function userLoginWithGoogle() {
 function userLogin(payload) {
     return firebaseInstance.firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then((data) => {
-            firebaseInstance.firebase.database().ref('users').child(data.user.uid).set({
-                uid: data.user.uid,
-                email: payload.email,
-            })
+            // firebaseInstance.firebase.database().ref('users').child(data.user.uid).set({
+            //     uid: data.user.uid,
+            //     email: payload.email,
+            // })
             return data.user.uid
         })
         .catch((error) => {
