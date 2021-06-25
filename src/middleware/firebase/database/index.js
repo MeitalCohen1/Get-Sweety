@@ -46,20 +46,20 @@ function userRegister(payload) {
             return data.user.uid
         })
         .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
+            let errorCode = error.code;
+            let errorMessage = error.message;
         });
 }
 
 function userLoginWithGoogle() {
-    var provider = new firebaseInstance.firebase.auth.GoogleAuthProvider();
+    let provider = new firebaseInstance.firebase.auth.GoogleAuthProvider();
     return firebaseInstance.firebase.auth().signInWithPopup(provider)
         .then((result) => {
             debugger
             /** @type {firebase.auth.OAuthCredential} */
-            var credential = result.credential;
-            var token = credential.accessToken;
-            var user = result.user;
+            let credential = result.credential;
+            let token = credential.accessToken;
+            let user = result.user;
             const newUser = {};
             newUser.displayName = user.displayName
             newUser.email = user.email
@@ -80,8 +80,8 @@ function userLogin(payload) {
             return data.user.uid
         })
         .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
+            let errorCode = error.code;
+            let errorMessage = error.message;
         });
 }
 
