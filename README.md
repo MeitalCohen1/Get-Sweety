@@ -1,4 +1,4 @@
-# items-vue-q
+# Get Sweety
 
 ## Project setup
 ```
