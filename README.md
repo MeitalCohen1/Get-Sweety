@@ -1,19 +1,5 @@
 # Get Sweety
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+An app which can offer dessert recipes for the users In accordance with the introduction of the ingredients they have in the kitchen,
+<br/>
+thus making it easier for the users to choose.
